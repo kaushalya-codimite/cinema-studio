@@ -26,6 +26,30 @@ body {
   overflow: hidden;
 }
 
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-color) 0%, #357abd 100%);
+  border-radius: 6px;
+  border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #357abd 0%, #2a5f94 100%);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg-secondary);
+}
+
 #root {
   width: 100vw;
   height: 100vh;
@@ -33,9 +57,10 @@ body {
 
 .video-editor {
   display: grid;
-  grid-template-rows: 50px 1fr 200px;
+  grid-template-rows: 60px 1fr 220px;
   grid-template-columns: 1fr;
   height: 100vh;
+  min-height: 600px; /* Minimum height for usability */
 }
 
 .toolbar {
@@ -45,13 +70,30 @@ body {
   align-items: center;
   padding: 0 16px;
   gap: 16px;
+  overflow-x: auto; /* Allow horizontal scrolling on small screens */
+  flex-shrink: 0; /* Prevent toolbar from shrinking */
+  min-height: 60px;
+}
+
+.toolbar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.toolbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toolbar::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 2px;
 }
 
 .main-content {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr 320px;
   gap: 1px;
   background-color: var(--border-color);
+  overflow: hidden; /* Prevent overflow of main content */
 }
 
 .preview-area {
@@ -60,24 +102,65 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden; /* Prevent overflow */
+  min-height: 300px; /* Minimum height for preview */
+  background-image: 
+    linear-gradient(45deg, #2a2a2a 25%, transparent 25%), 
+    linear-gradient(-45deg, #2a2a2a 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #2a2a2a 75%), 
+    linear-gradient(-45deg, transparent 75%, #2a2a2a 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
 .properties-panel {
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border-color);
   overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0; /* Reset padding to be handled by panel-section */
+  height: 100%; /* Ensure full height */
+  max-height: calc(100vh - 280px); /* Account for toolbar and timeline */
 }
 
 .timeline-area {
   background-color: var(--timeline-bg);
   border-top: 1px solid var(--border-color);
-  padding: 8px;
+  padding: 12px;
+  overflow-y: auto;
+  overflow-x: auto; /* Allow horizontal scrolling for timeline */
+  min-height: 200px; /* Minimum timeline height */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--accent-color) var(--bg-secondary); /* Firefox */
+}
+
+/* Timeline specific scrolling enhancements */
+.timeline-area::-webkit-scrollbar {
+  height: 8px; /* Horizontal scrollbar height */
+  width: 8px; /* Vertical scrollbar width */
+}
+
+.timeline-area::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+  border-radius: 4px;
+}
+
+.timeline-area::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+.timeline-area::-webkit-scrollbar-thumb:hover {
+  background: #357abd;
 }
 
 .video-preview {
-  max-width: 100%;
-  max-height: 100%;
-  border: 1px solid var(--border-color);
+  max-width: calc(100% - 40px);
+  max-height: calc(100% - 40px);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: #000; /* Black background for video */
 }
 
 .loading {
@@ -197,26 +280,35 @@ input[type="range"]::-moz-range-thumb:hover {
 
 /* Enhanced Panel Sections */
 .panel-section {
-  padding: 18px;
+  padding: 16px 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background: linear-gradient(135deg, var(--bg-secondary) 0%, #333 100%);
+  margin-bottom: 2px; /* Small gap between sections */
 }
 
 .panel-section:last-child {
   border-bottom: none;
+  margin-bottom: 0;
+}
+
+.panel-section:first-child {
+  margin-top: 0;
 }
 
 /* Enhanced Control Groups */
 .control-group {
   margin-bottom: 16px;
-  padding: 8px;
+  padding: 12px 10px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.02);
   transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .control-group:hover {
   background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(74, 144, 226, 0.3);
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.1);
 }
 
 .control-group label {
@@ -306,4 +398,55 @@ input[type="range"]::-moz-range-thumb:hover {
   height: 16px;
   background: linear-gradient(135deg, var(--accent-color) 0%, #357abd 100%);
   border-radius: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .main-content {
+    grid-template-columns: 1fr 280px; /* Smaller properties panel */
+  }
+  
+  .panel-section {
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .video-editor {
+    grid-template-rows: 60px 1fr 180px; /* Smaller timeline */
+  }
+  
+  .main-content {
+    grid-template-columns: 1fr 250px; /* Even smaller properties panel */
+  }
+  
+  .timeline-area {
+    min-height: 150px;
+    padding: 10px;
+  }
+}
+
+@media (max-height: 700px) {
+  .video-editor {
+    grid-template-rows: 50px 1fr 160px; /* Compact vertical layout */
+  }
+  
+  .panel-section {
+    padding: 12px 16px;
+  }
+  
+  .control-group {
+    margin-bottom: 12px;
+  }
+}
+
+/* Improved scrolling for small screens */
+@media (max-height: 600px) {
+  .properties-panel {
+    max-height: calc(100vh - 250px);
+  }
+  
+  .timeline-area {
+    min-height: 120px;
+  }
 }

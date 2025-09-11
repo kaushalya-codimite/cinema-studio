@@ -38,6 +38,7 @@ const VideoPreview: React.FC = () => {
     initializePreview();
   }, [project]);
 
+  // Handle play/pause state changes
   useEffect(() => {
     if (project && project.isPlaying) {
       startPlayback();
@@ -45,6 +46,57 @@ const VideoPreview: React.FC = () => {
       stopPlayback();
     }
   }, [project?.isPlaying]);
+
+  // Handle currentTime changes for rendering frames
+  useEffect(() => {
+    if (project && !project.isPlaying) {
+      // Only render when NOT playing (to avoid conflicts with playback timer)
+      renderVideoAtTime(project.currentTime);
+    }
+  }, [project?.currentTime]);
+
+  const startPlayback = () => {
+    if (playbackInterval || !project) return;
+
+    console.log('▶️ Starting playback at fps:', project.fps);
+    const fps = project.fps;
+    const duration = project.duration;
+    
+    const interval = setInterval(() => {
+      // Get fresh project state
+      const currentProject = useVideoProjectStore.getState().project;
+      if (!currentProject || !currentProject.isPlaying) {
+        clearInterval(interval);
+        setPlaybackInterval(null);
+        return;
+      }
+      
+      const currentTime = currentProject.currentTime;
+      const newTime = currentTime + (1 / fps);
+      
+      if (newTime >= duration) {
+        console.log('⏹️ Video ended, stopping playback');
+        setPlaying(false);
+        setCurrentTime(0);
+        clearInterval(interval);
+        setPlaybackInterval(null);
+      } else {
+        setCurrentTime(newTime);
+        // Render frame at new time
+        renderVideoAtTime(newTime);
+      }
+    }, 1000 / fps);
+
+    setPlaybackInterval(interval);
+  };
+
+  const stopPlayback = () => {
+    if (playbackInterval) {
+      console.log('⏸️ Stopping playback');
+      clearInterval(playbackInterval);
+      setPlaybackInterval(null);
+    }
+  };
 
   const initializeTestVideo = async () => {
     try {
@@ -123,11 +175,7 @@ const VideoPreview: React.FC = () => {
           let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
           
           const colorEffect = activeClip.effects.find(e => e.type === 'color_correction' && e.enabled);
-          console.log('🔍 Color effect check:', colorEffect ? 'Found and enabled' : 'Not found or disabled');
           if (colorEffect) {
-            console.log('🎨 Color effect parameters:', colorEffect.parameters);
-            console.log('🖼️ Frame object:', frame);
-            console.log('🖼️ ImageData:', frame.imageData.width, 'x', frame.imageData.height);
             // Use ImageData dimensions since frame.width/height might not exist
             const width = frame.imageData.width;
             const height = frame.imageData.height;
@@ -225,32 +273,6 @@ const VideoPreview: React.FC = () => {
     ctx.fillText('Check console for details', canvas.width / 2, canvas.height / 2 + 10);
   };
 
-  const startPlayback = () => {
-    if (playbackInterval) return;
-
-    const fps = project?.fps || 30;
-    const interval = setInterval(() => {
-      if (project) {
-        const newTime = project.currentTime + (1 / fps);
-        if (newTime >= project.duration) {
-          setPlaying(false);
-          setCurrentTime(0);
-        } else {
-          setCurrentTime(newTime);
-        }
-      }
-    }, 1000 / fps);
-
-    setPlaybackInterval(interval);
-  };
-
-  const stopPlayback = () => {
-    if (playbackInterval) {
-      clearInterval(playbackInterval);
-      setPlaybackInterval(null);
-    }
-  };
-
   const loadFrame = (dec: VideoDecoder, frame: number) => {
     // DISABLED: WASM frame loading not available
     console.log('Frame loading disabled - using JavaScript mode');
@@ -297,6 +319,11 @@ const VideoPreview: React.FC = () => {
 
   const handlePlayPause = () => {
     if (project) {
+      console.log('🎬 Play button clicked! Current state:', {
+        isPlaying: project.isPlaying,
+        currentTime: project.currentTime,
+        duration: project.duration
+      });
       setPlaying(!project.isPlaying);
     }
   };
@@ -304,7 +331,6 @@ const VideoPreview: React.FC = () => {
   const handleTimeSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = parseFloat(e.target.value);
     setCurrentTime(newTime);
-    renderVideoAtTime(newTime);
   };
 
   const applyTestFilter = () => {
