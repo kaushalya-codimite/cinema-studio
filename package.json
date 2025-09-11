@@ -1,0 +1,30 @@
+{
+  "name": "cinemastudio-pro",
+  "version": "1.0.0",
+  "description": "Professional Video Editing Application built with WebAssembly (WASM) + C + React",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build:wasm && npm run build:frontend && npm run build:backend",
+    "build:wasm": "cd packages/video-engine && ./build/build.sh",
+    "build:frontend": "cd packages/frontend && npm run build",
+    "build:backend": "cd packages/backend && npm run build",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd packages/frontend && npm run dev",
+    "dev:backend": "cd packages/backend && npm run dev",
+    "test": "npm run test:wasm && npm run test:frontend && npm run test:backend",
+    "test:wasm": "cd packages/video-engine && make test",
+    "test:frontend": "cd packages/frontend && npm run test",
+    "test:backend": "cd packages/backend && npm run test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "CinemaStudio Pro Team",
+  "license": "MIT"
+}
