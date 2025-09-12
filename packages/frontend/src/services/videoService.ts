@@ -1,4 +1,4 @@
-import type { VideoEngineModule, VideoDecoder, VideoFrame, ColorCorrectionParams } from '../wasm/video-engine.d.ts';
+import type { VideoEngineModule, VideoDecoder, VideoFrame, ColorCorrectionParams, VideoExporter } from '../wasm/video-engine.d.ts';
 
 class VideoService {
   private wasmModule: VideoEngineModule | null = null;
@@ -22,9 +22,22 @@ class VideoService {
       // Initialize the video engine
       this.wasmModule.ccall('video_engine_init', 'void', [], []);
       
+      // Wait for memory views to be available
+      let retries = 0;
+      while ((!this.wasmModule.HEAPU8 || !this.wasmModule.HEAP32) && retries < 10) {
+        console.log(`⏳ Waiting for WASM memory initialization... (attempt ${retries + 1})`);
+        await new Promise(resolve => setTimeout(resolve, 100));
+        retries++;
+      }
+      
+      if (!this.wasmModule.HEAPU8 || !this.wasmModule.HEAP32) {
+        throw new Error('WASM memory views not available after initialization');
+      }
+      
       console.log('✅ WASM Video Engine initialized successfully!');
-      console.log('🔧 HEAPU8 available:', !!this.wasmModule.HEAPU8);
-      console.log('🔧 js_apply_color_correction_direct available:', !!this.wasmModule.ccall);
+      console.log('🔧 HEAPU8 available:', !!this.wasmModule.HEAPU8, 'size:', this.wasmModule.HEAPU8?.length);
+      console.log('🔧 HEAP32 available:', !!this.wasmModule.HEAP32, 'size:', this.wasmModule.HEAP32?.length);
+      console.log('🔧 ccall available:', !!this.wasmModule.ccall);
       console.log('🎬 Engine version:', this.getVersion());
     } catch (error) {
       console.error('❌ Failed to initialize WASM Video Engine:', error);
@@ -41,16 +54,59 @@ class VideoService {
   }
 
   private isWasmAvailable(): boolean {
-    return this.wasmModule !== null && this.initialized;
+    return this.wasmModule !== null && 
+           this.initialized && 
+           !!this.wasmModule.HEAPU8 && 
+           !!this.wasmModule.HEAP32 &&
+           !!this.wasmModule.ccall;
   }
 
   private copyArrayToWasm(data: Uint8Array, wasmPtr: number): void {
-    this.wasmModule!.HEAPU8.set(data, wasmPtr);
+    if (!this.wasmModule || !this.wasmModule.HEAPU8) {
+      throw new Error('WASM module not available or HEAPU8 not initialized');
+    }
+    
+    if (!data || data.length === 0) {
+      throw new Error('Invalid data array provided');
+    }
+    
+    if (wasmPtr <= 0) {
+      throw new Error(`Invalid WASM pointer: ${wasmPtr}`);
+    }
+    
+    // Check if we have enough memory in WASM heap
+    const wasmHeapSize = this.wasmModule.HEAPU8.length;
+    if (wasmPtr + data.length > wasmHeapSize) {
+      throw new Error(`Not enough WASM memory: need ${wasmPtr + data.length}, have ${wasmHeapSize}`);
+    }
+    
+    try {
+      this.wasmModule.HEAPU8.set(data, wasmPtr);
+    } catch (error) {
+      throw new Error(`Failed to copy data to WASM memory at ${wasmPtr}: ${error}`);
+    }
   }
 
   private copyArrayFromWasm(wasmPtr: number, length: number, target: Uint8Array): void {
-    const source = this.wasmModule!.HEAPU8.subarray(wasmPtr, wasmPtr + length);
-    target.set(source);
+    if (!this.wasmModule || !this.wasmModule.HEAPU8) {
+      throw new Error('WASM module not available or HEAPU8 not initialized');
+    }
+    
+    if (wasmPtr <= 0 || length <= 0) {
+      throw new Error(`Invalid parameters: wasmPtr=${wasmPtr}, length=${length}`);
+    }
+    
+    const wasmHeapSize = this.wasmModule.HEAPU8.length;
+    if (wasmPtr + length > wasmHeapSize) {
+      throw new Error(`Not enough WASM memory to read: need ${wasmPtr + length}, have ${wasmHeapSize}`);
+    }
+    
+    try {
+      const source = this.wasmModule.HEAPU8.subarray(wasmPtr, wasmPtr + length);
+      target.set(source);
+    } catch (error) {
+      throw new Error(`Failed to copy data from WASM memory at ${wasmPtr}: ${error}`);
+    }
   }
 
   createDecoder(): VideoDecoder {
@@ -330,7 +386,7 @@ class VideoService {
   }
 
   // New WASM-specific filter functions
-  applyBlurFilter(framePtr: number, radius: number): void {
+  applyBlurFilter(frameData: Uint8Array, width: number, height: number, radius: number): void {
     this.ensureInitialized();
     
     if (!this.isWasmAvailable()) {
@@ -338,19 +394,36 @@ class VideoService {
     }
     
     try {
-      this.wasmModule!.ccall(
-        'js_apply_blur_filter',
-        'void',
-        ['number', 'number'],
-        [framePtr, radius]
-      );
-      console.log(`🎬 Applied WASM blur filter (radius: ${radius})`);
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for blur filter');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply blur filter
+        this.wasmModule!.ccall(
+          'js_apply_blur_filter',
+          'void',
+          ['number', 'number', 'number', 'number'],
+          [dataPtr, width, height, radius]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`🌫️ Applied WASM blur filter (radius: ${radius})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
     } catch (error) {
       console.error('❌ Failed to apply WASM blur filter:', error);
+      throw error;
     }
   }
 
-  applySharpenFilter(framePtr: number, intensity: number): void {
+  applySharpenFilter(frameData: Uint8Array, width: number, height: number, intensity: number): void {
     this.ensureInitialized();
     
     if (!this.isWasmAvailable()) {
@@ -358,15 +431,69 @@ class VideoService {
     }
     
     try {
-      this.wasmModule!.ccall(
-        'js_apply_sharpen_filter',
-        'void',
-        ['number', 'number'],
-        [framePtr, intensity]
-      );
-      console.log(`⚙️ Applied WASM sharpen filter (intensity: ${intensity})`);
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for sharpen filter');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply sharpen filter
+        this.wasmModule!.ccall(
+          'js_apply_sharpen_filter',
+          'void',
+          ['number', 'number', 'number', 'number'],
+          [dataPtr, width, height, intensity]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`⚡ Applied WASM sharpen filter (intensity: ${intensity})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
     } catch (error) {
       console.error('❌ Failed to apply WASM sharpen filter:', error);
+      throw error;
+    }
+  }
+
+  applyNoiseReduction(frameData: Uint8Array, width: number, height: number, strength: number): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for noise reduction');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply noise reduction
+        this.wasmModule!.ccall(
+          'js_apply_noise_reduction',
+          'void',
+          ['number', 'number', 'number', 'number'],
+          [dataPtr, width, height, strength]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`🔧 Applied WASM noise reduction (strength: ${strength})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM noise reduction:', error);
+      throw error;
     }
   }
 
@@ -395,6 +522,172 @@ class VideoService {
       console.log('🎨 Applied advanced WASM color correction');
     } catch (error) {
       console.error('❌ Failed to apply advanced WASM color correction:', error);
+    }
+  }
+
+  // Export functionality
+  createVideoExporter(width: number, height: number, fps: number, format: 'mp4' | 'webm'): VideoExporter {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - export requires WASM for video processing!');
+    }
+    
+    try {
+      const formatCode = format === 'mp4' ? 0 : 1;
+      const exporterPtr = this.wasmModule!.ccall(
+        'js_video_exporter_create',
+        'number',
+        ['number', 'number', 'number', 'number'],
+        [width, height, fps, formatCode]
+      );
+      
+      if (!exporterPtr) {
+        throw new Error('Failed to create WASM video exporter');
+      }
+      
+      console.log(`📹 Created ${format.toUpperCase()} exporter: ${width}x${height} @ ${fps}fps`);
+      return {
+        ptr: exporterPtr,
+        width,
+        height,
+        fps,
+        format,
+        totalFrames: 0
+      };
+    } catch (error) {
+      console.error('❌ Failed to create video exporter:', error);
+      throw error;
+    }
+  }
+
+  addFrameToExport(exporter: VideoExporter, frameData: Uint8Array, width: number, height: number): boolean {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - export requires WASM for video processing!');
+    }
+    
+    try {
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for frame data');
+      }
+      
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        const result = this.wasmModule!.ccall(
+          'js_video_exporter_add_frame',
+          'number',
+          ['number', 'number', 'number', 'number'],
+          [exporter.ptr, dataPtr, width, height]
+        );
+        
+        if (result === 1) {
+          exporter.totalFrames++;
+          console.log(`🎬 Added frame ${exporter.totalFrames} to ${exporter.format.toUpperCase()} export`);
+          return true;
+        } else {
+          console.error('❌ Failed to add frame to export');
+          return false;
+        }
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to add frame to export:', error);
+      throw error;
+    }
+  }
+
+  finalizeExport(exporter: VideoExporter): Uint8Array {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - export requires WASM for video processing!');
+    }
+
+    console.log('🔍 Debugging WASM state for finalizeExport:', {
+      wasmModule: !!this.wasmModule,
+      initialized: this.initialized,
+      hasHEAP32: !!this.wasmModule?.HEAP32,
+      hasHEAPU8: !!this.wasmModule?.HEAPU8,
+      exporterPtr: exporter.ptr,
+      exporterTotalFrames: exporter.totalFrames
+    });
+    
+    try {
+      const outputSizePtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [4]); // int size
+      if (!outputSizePtr) {
+        throw new Error('Failed to allocate memory for output size');
+      }
+      
+      try {
+        const outputDataPtr = this.wasmModule!.ccall(
+          'js_video_exporter_finalize',
+          'number',
+          ['number', 'number'],
+          [exporter.ptr, outputSizePtr]
+        );
+        
+        if (!outputDataPtr) {
+          throw new Error('Export finalization failed');
+        }
+        
+        // Get the output size with bounds checking
+        if (!this.wasmModule!.HEAP32) {
+          throw new Error('WASM HEAP32 not initialized - check WASM module loading');
+        }
+        
+        const outputSizeIndex = outputSizePtr >> 2;
+        const heap32Size = this.wasmModule!.HEAP32.length;
+        
+        if (outputSizeIndex < 0 || outputSizeIndex >= heap32Size) {
+          throw new Error(`HEAP32 index out of bounds: ${outputSizeIndex} >= ${heap32Size}`);
+        }
+        
+        const outputSize = this.wasmModule!.HEAP32[outputSizeIndex];
+        
+        if (outputSize <= 0 || outputSize > 100 * 1024 * 1024) { // Max 100MB
+          throw new Error(`Invalid output size: ${outputSize} bytes`);
+        }
+        
+        // Copy the output data
+        const outputData = new Uint8Array(outputSize);
+        this.copyArrayFromWasm(outputDataPtr, outputSize, outputData);
+        
+        // Clean up
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [outputDataPtr]);
+        
+        console.log(`🚀 Export completed! ${exporter.format.toUpperCase()} file size: ${outputSize} bytes (${exporter.totalFrames} frames)`);
+        return outputData;
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [outputSizePtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to finalize export:', error);
+      throw error;
+    }
+  }
+
+  destroyVideoExporter(exporter: VideoExporter): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - export requires WASM for video processing!');
+    }
+    
+    if (exporter.ptr) {
+      try {
+        this.wasmModule!.ccall('js_video_exporter_destroy', 'void', ['number'], [exporter.ptr]);
+        console.log(`🗑️ Destroyed ${exporter.format.toUpperCase()} exporter`);
+        exporter.ptr = 0;
+      } catch (error) {
+        console.error('❌ Failed to destroy video exporter:', error);
+        exporter.ptr = 0;
+      }
     }
   }
 }

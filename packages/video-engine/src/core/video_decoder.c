@@ -16,6 +16,7 @@ video_decoder_t* video_decoder_create(void) {
     decoder->duration = 0.0;
     decoder->total_frames = 0;
     decoder->is_open = false;
+    decoder->data = NULL; // Initialize export buffer
     
     return decoder;
 }
@@ -26,6 +27,11 @@ void video_decoder_destroy(video_decoder_t* decoder) {
     if (decoder->context) {
         // Clean up decoder context
         free(decoder->context);
+    }
+    
+    if (decoder->data) {
+        // Clean up export buffer
+        free(decoder->data);
     }
     
     free(decoder);

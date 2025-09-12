@@ -31,6 +31,7 @@ typedef struct video_decoder_t {
     double duration;
     int total_frames;
     bool is_open;
+    uint8_t* data; // Frame buffer for export functionality
 } video_decoder_t;
 
 // Memory pool for efficient frame management

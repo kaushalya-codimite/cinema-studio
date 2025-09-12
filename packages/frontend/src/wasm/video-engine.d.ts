@@ -47,4 +47,13 @@ export interface BlurParams {
   gaussian: boolean;
 }
 
+export interface VideoExporter {
+  ptr: number;
+  width: number;
+  height: number;
+  fps: number;
+  format: 'mp4' | 'webm';
+  totalFrames: number;
+}
+
 export declare function loadVideoEngine(): Promise<VideoEngineModule>;

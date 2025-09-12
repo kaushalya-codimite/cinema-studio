@@ -10,10 +10,12 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
+    "@types/three": "^0.155.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.155.0",
-    "@types/three": "^0.155.0",
     "zustand": "^4.4.1"
   },
   "devDependencies": {

@@ -9,28 +9,41 @@ const Toolbar: React.FC = () => {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'video/*';
+    input.multiple = true; // Allow multiple file selection
     input.onchange = async (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (file) {
+      const files = (e.target as HTMLInputElement).files;
+      if (files && files.length > 0) {
         try {
-          console.log('Loading video file:', file.name);
-          
           // Create a project if none exists
           if (!project) {
             createNewProject('New Project', 1920, 1080, 30);
           }
 
-          // Load video file
-          const videoInfo = await videoFileService.loadVideoFile(file);
-          console.log('Video loaded:', videoInfo);
+          console.log(`Importing ${files.length} video files...`);
+          
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            console.log(`Loading video ${i + 1}/${files.length}: ${file.name}`);
+            
+            try {
+              // Load video file
+              const videoInfo = await videoFileService.loadVideoFile(file);
+              console.log('Video loaded:', videoInfo);
 
-          // Add to project
-          addVideoFile(videoInfo);
-          addClipToTrack(videoInfo, 0); // Add to first video track
+              // Add to project
+              addVideoFile(videoInfo);
+              addClipToTrack(videoInfo, 0); // Add to first video track - will auto-sequence
+
+            } catch (error) {
+              console.error(`Failed to load ${file.name}:`, error);
+            }
+          }
+          
+          console.log(`✅ Successfully imported ${files.length} video files`);
 
         } catch (error) {
-          console.error('Failed to import video:', error);
-          alert(`Failed to import video: ${error}`);
+          console.error('Failed to import videos:', error);
+          alert(`Failed to import videos: ${error}`);
         }
       }
     };
@@ -60,7 +73,7 @@ const Toolbar: React.FC = () => {
       </button>
       
       <button className="secondary" onClick={handleImportVideo}>
-        📁 Import Video
+        📁 Import Videos
       </button>
       
       <button className="success" disabled>
