@@ -5,7 +5,7 @@ import { videoFileService } from '../../services/videoFileService';
 import type { VideoExporter } from '../../wasm/video-engine.d.ts';
 
 const PropertiesPanel: React.FC = () => {
-  const { project, updateClipEffect } = useVideoProjectStore();
+  const { project, updateClipEffect, addEffectToClip } = useVideoProjectStore();
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
   
@@ -308,7 +308,27 @@ const PropertiesPanel: React.FC = () => {
                     if (frame) {
                       let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
                       videoService.applyBlurFilter(frameData, frame.imageData.width, frame.imageData.height, 3.0);
-                      console.log('✅ WASM blur filter applied successfully!');
+                      
+                      // Update canvas display with filtered result
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          const processedImageData = new ImageData(
+                            new Uint8ClampedArray(frameData),
+                            frame.imageData.width,
+                            frame.imageData.height
+                          );
+                          ctx.putImageData(processedImageData, 0, 0);
+                          console.log('✅ WASM blur filter applied and canvas updated!');
+                        }
+                      }
+                      
+                      // Add blur effect persistently to the selected clip for export
+                      if (selectedClip) {
+                        addEffectToClip(selectedClip.id, 'blur', { radius: 3.0 });
+                        console.log('✅ Blur effect added to clip for export!');
+                      }
                     }
                   }
                 }
@@ -342,7 +362,27 @@ const PropertiesPanel: React.FC = () => {
                     if (frame) {
                       let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
                       videoService.applySharpenFilter(frameData, frame.imageData.width, frame.imageData.height, 0.5);
-                      console.log('✅ WASM sharpen filter applied successfully!');
+                      
+                      // Update canvas display with filtered result
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          const processedImageData = new ImageData(
+                            new Uint8ClampedArray(frameData),
+                            frame.imageData.width,
+                            frame.imageData.height
+                          );
+                          ctx.putImageData(processedImageData, 0, 0);
+                          console.log('✅ WASM sharpen filter applied and canvas updated!');
+                        }
+                      }
+                      
+                      // Add sharpen effect persistently to the selected clip for export
+                      if (selectedClip) {
+                        addEffectToClip(selectedClip.id, 'sharpen', { intensity: 0.5 });
+                        console.log('✅ Sharpen effect added to clip for export!');
+                      }
                     }
                   }
                 }
@@ -376,7 +416,27 @@ const PropertiesPanel: React.FC = () => {
                     if (frame) {
                       let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
                       videoService.applyNoiseReduction(frameData, frame.imageData.width, frame.imageData.height, 0.8);
-                      console.log('✅ WASM noise reduction applied successfully!');
+                      
+                      // Update canvas display with filtered result
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          const processedImageData = new ImageData(
+                            new Uint8ClampedArray(frameData),
+                            frame.imageData.width,
+                            frame.imageData.height
+                          );
+                          ctx.putImageData(processedImageData, 0, 0);
+                          console.log('✅ WASM noise reduction applied and canvas updated!');
+                        }
+                      }
+                      
+                      // Add noise reduction effect persistently to the selected clip for export
+                      if (selectedClip) {
+                        addEffectToClip(selectedClip.id, 'noise_reduction', { strength: 0.8 });
+                        console.log('✅ Noise reduction effect added to clip for export!');
+                      }
                     }
                   }
                 }

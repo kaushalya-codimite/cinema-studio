@@ -171,15 +171,51 @@ const VideoPreview: React.FC = () => {
         const frame = await videoFileService.extractFrame(activeClip.videoInfo, videoTime);
         
         if (frame) {
-          // Apply JavaScript-based color correction if enabled
+          // Apply ALL effects (not just color correction)
           let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
+          const width = frame.imageData.width;
+          const height = frame.imageData.height;
           
-          const colorEffect = activeClip.effects.find(e => e.type === 'color_correction' && e.enabled);
-          if (colorEffect) {
-            // Use ImageData dimensions since frame.width/height might not exist
-            const width = frame.imageData.width;
-            const height = frame.imageData.height;
-            applyColorCorrectionJS(frameData, width, height, colorEffect.parameters as any);
+          // Process all enabled effects in order
+          for (const effect of activeClip.effects) {
+            if (!effect.enabled) continue;
+            
+            console.log(`🎨 Applying effect in preview: ${effect.type}`);
+            
+            switch (effect.type) {
+              case 'color_correction':
+                applyColorCorrectionJS(frameData, width, height, effect.parameters as any);
+                break;
+              case 'blur':
+                try {
+                  await videoService.initialize();
+                  videoService.applyBlurFilter(frameData, width, height, effect.parameters.radius || 1);
+                  console.log(`🌫️ Applied WASM blur filter in preview (radius: ${effect.parameters.radius})`);
+                } catch (error) {
+                  console.error('❌ WASM blur failed in preview:', error);
+                }
+                break;
+              case 'sharpen':
+                try {
+                  await videoService.initialize();
+                  videoService.applySharpenFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+                  console.log(`⚡ Applied WASM sharpen filter in preview (intensity: ${effect.parameters.intensity})`);
+                } catch (error) {
+                  console.error('❌ WASM sharpen failed in preview:', error);
+                }
+                break;
+              case 'noise_reduction':
+                try {
+                  await videoService.initialize();
+                  videoService.applyNoiseReduction(frameData, width, height, effect.parameters.strength || 0.5);
+                  console.log(`🔧 Applied WASM noise reduction in preview (strength: ${effect.parameters.strength})`);
+                } catch (error) {
+                  console.error('❌ WASM noise reduction failed in preview:', error);
+                }
+                break;
+              default:
+                console.warn(`❓ Unknown effect type in preview: ${effect.type}`);
+            }
           }
 
           // Draw to canvas
