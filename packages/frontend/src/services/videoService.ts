@@ -385,6 +385,65 @@ class VideoService {
     }
   }
 
+  // New WASM-specific transform functions
+  applyTransform(frameData: Uint8Array, width: number, height: number, params: {
+    scale?: number;
+    rotation?: number;
+    flipHorizontal?: boolean;
+    flipVertical?: boolean;
+    cropX?: number;
+    cropY?: number;
+    cropWidth?: number;
+    cropHeight?: number;
+  }): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for transform');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply transform operations
+        this.wasmModule!.ccall(
+          'js_apply_transform',
+          'void',
+          ['number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number'],
+          [
+            dataPtr, 
+            width, 
+            height,
+            params.scale || 100,
+            params.rotation || 0,
+            params.flipHorizontal ? 1 : 0,
+            params.flipVertical ? 1 : 0,
+            params.cropX || 0,
+            params.cropY || 0,
+            params.cropWidth || 100,
+            params.cropHeight || 100
+          ]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`🔄 Applied WASM transform: scale=${params.scale}%, rotation=${params.rotation}°, flip H/V=${params.flipHorizontal}/${params.flipVertical}, crop=${params.cropX},${params.cropY} ${params.cropWidth}x${params.cropHeight}%`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM transform:', error);
+      throw error;
+    }
+  }
+
   // New WASM-specific filter functions
   applyBlurFilter(frameData: Uint8Array, width: number, height: number, radius: number): void {
     this.ensureInitialized();

@@ -42,6 +42,18 @@ typedef struct {
     bool gaussian;     // true for Gaussian, false for box blur
 } blur_params_t;
 
+// Transform parameters
+typedef struct {
+    float scale;           // Scale factor (100 = 100%, 200 = 200%, etc.)
+    float rotation;        // Rotation angle in degrees
+    int flip_horizontal;   // 1 = flip horizontally, 0 = don't flip
+    int flip_vertical;     // 1 = flip vertically, 0 = don't flip
+    int crop_x;           // Crop X position (percentage)
+    int crop_y;           // Crop Y position (percentage) 
+    int crop_width;       // Crop width (percentage)
+    int crop_height;      // Crop height (percentage)
+} transform_params_t;
+
 // Filter functions
 EMSCRIPTEN_KEEPALIVE void filter_apply(video_frame_t* frame, filter_params_t* params);
 EMSCRIPTEN_KEEPALIVE void filter_color_correction(video_frame_t* frame, color_correction_t* params);
@@ -49,6 +61,7 @@ EMSCRIPTEN_KEEPALIVE void filter_blur(video_frame_t* frame, blur_params_t* param
 EMSCRIPTEN_KEEPALIVE void filter_sharpen(video_frame_t* frame, float intensity);
 EMSCRIPTEN_KEEPALIVE void filter_edge_detection(video_frame_t* frame, float threshold);
 EMSCRIPTEN_KEEPALIVE void filter_noise_reduction(video_frame_t* frame, float strength);
+EMSCRIPTEN_KEEPALIVE void filter_transform(video_frame_t* frame, transform_params_t* params);
 
 // Real-time filter application
 EMSCRIPTEN_KEEPALIVE void apply_real_time_filter(uint8_t* frame_data, int width, int height, 

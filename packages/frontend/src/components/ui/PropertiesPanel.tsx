@@ -14,10 +14,17 @@ const PropertiesPanel: React.FC = () => {
     .find(clip => clip.id === project?.selectedClipId);
 
   const colorEffect = selectedClip?.effects.find(e => e.type === 'color_correction');
+  const transformEffect = selectedClip?.effects.find(e => e.type === 'transform');
 
   const handleEffectChange = (parameter: string, value: number) => {
     if (selectedClip && colorEffect) {
       updateClipEffect(selectedClip.id, colorEffect.id, { [parameter]: value });
+    }
+  };
+
+  const handleTransformChange = (parameter: string, value: number | boolean) => {
+    if (selectedClip && transformEffect) {
+      updateClipEffect(selectedClip.id, transformEffect.id, { [parameter]: value });
     }
   };
 
@@ -450,17 +457,121 @@ const PropertiesPanel: React.FC = () => {
         </button>
       </div>
 
-      <div className="panel-section">
-        <h3>🔄 Transform</h3>
-        <div className="control-group">
-          <label>Scale</label>
-          <input type="range" min="10" max="200" defaultValue="100" />
+      {transformEffect && (
+        <div className="panel-section">
+          <h3>🔄 Transform</h3>
+          
+          <div className="control-group">
+            <label>Scale</label>
+            <input
+              type="range"
+              min="10"
+              max="200"
+              step="5"
+              value={transformEffect.parameters.scale || 100}
+              onChange={(e) => handleTransformChange('scale', parseFloat(e.target.value))}
+            />
+            <span style={{ fontSize: '12px', color: '#999' }}>
+              {(transformEffect.parameters.scale || 100)}%
+            </span>
+          </div>
+
+          <div className="control-group">
+            <label>Rotation</label>
+            <input
+              type="range"
+              min="-180"
+              max="180"
+              step="5"
+              value={transformEffect.parameters.rotation || 0}
+              onChange={(e) => handleTransformChange('rotation', parseFloat(e.target.value))}
+            />
+            <span style={{ fontSize: '12px', color: '#999' }}>
+              {(transformEffect.parameters.rotation || 0)}°
+            </span>
+          </div>
+
+          <div className="control-group">
+            <label>Flip</label>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                className={transformEffect.parameters.flipHorizontal ? 'primary' : 'secondary'}
+                style={{ flex: 1, padding: '4px 8px', fontSize: '12px' }}
+                onClick={() => handleTransformChange('flipHorizontal', !transformEffect.parameters.flipHorizontal)}
+              >
+                ↔️ Horizontal
+              </button>
+              <button
+                className={transformEffect.parameters.flipVertical ? 'primary' : 'secondary'}
+                style={{ flex: 1, padding: '4px 8px', fontSize: '12px' }}
+                onClick={() => handleTransformChange('flipVertical', !transformEffect.parameters.flipVertical)}
+              >
+                ↕️ Vertical
+              </button>
+            </div>
+          </div>
+
+          <div className="control-group">
+            <label>Crop Position</label>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '10px' }}>X</label>
+                <input
+                  type="range"
+                  min="0"
+                  max="50"
+                  step="1"
+                  value={transformEffect.parameters.cropX || 0}
+                  onChange={(e) => handleTransformChange('cropX', parseFloat(e.target.value))}
+                />
+                <span style={{ fontSize: '10px', color: '#999' }}>{transformEffect.parameters.cropX || 0}%</span>
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '10px' }}>Y</label>
+                <input
+                  type="range"
+                  min="0"
+                  max="50"
+                  step="1"
+                  value={transformEffect.parameters.cropY || 0}
+                  onChange={(e) => handleTransformChange('cropY', parseFloat(e.target.value))}
+                />
+                <span style={{ fontSize: '10px', color: '#999' }}>{transformEffect.parameters.cropY || 0}%</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="control-group">
+            <label>Crop Size</label>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '10px' }}>Width</label>
+                <input
+                  type="range"
+                  min="10"
+                  max="100"
+                  step="5"
+                  value={transformEffect.parameters.cropWidth || 100}
+                  onChange={(e) => handleTransformChange('cropWidth', parseFloat(e.target.value))}
+                />
+                <span style={{ fontSize: '10px', color: '#999' }}>{transformEffect.parameters.cropWidth || 100}%</span>
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '10px' }}>Height</label>
+                <input
+                  type="range"
+                  min="10"
+                  max="100"
+                  step="5"
+                  value={transformEffect.parameters.cropHeight || 100}
+                  onChange={(e) => handleTransformChange('cropHeight', parseFloat(e.target.value))}
+                />
+                <span style={{ fontSize: '10px', color: '#999' }}>{transformEffect.parameters.cropHeight || 100}%</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="control-group">
-          <label>Rotation</label>
-          <input type="range" min="-180" max="180" defaultValue="0" />
-        </div>
-      </div>
+      )}
 
       <div className="panel-section">
         <h3>🚀 Export</h3>

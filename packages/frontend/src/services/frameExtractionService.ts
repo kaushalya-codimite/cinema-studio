@@ -1,4 +1,5 @@
 import { VideoClip } from '../stores/videoProjectStore';
+import { videoService } from './videoService';
 
 export interface FrameExtractionOptions {
   width: number;
@@ -291,7 +292,7 @@ export class FrameExtractionService {
     });
 
     // Get current frame data from canvas
-    const imageData = this.ctx.getImageData(
+    let imageData = this.ctx.getImageData(
       Math.floor(renderInfo.dx), 
       Math.floor(renderInfo.dy), 
       Math.floor(renderInfo.dWidth), 
@@ -315,16 +316,20 @@ export class FrameExtractionService {
           this.applyColorCorrection(imageData, effect.parameters);
           effectsApplied++;
           break;
+        case 'transform':
+          imageData = this.applyTransformJS(imageData, effect.parameters);
+          effectsApplied++;
+          break;
         case 'blur':
-          this.applyBlur(imageData, effect.parameters.radius || 1);
+          await this.applyBlurWASM(imageData, effect.parameters.radius || 1);
           effectsApplied++;
           break;
         case 'sharpen':
-          this.applySharpen(imageData, effect.parameters.intensity || 1);
+          await this.applySharpenWASM(imageData, effect.parameters.intensity || 1);
           effectsApplied++;
           break;
         case 'noise_reduction':
-          this.applyNoiseReduction(imageData, effect.parameters.strength || 0.5);
+          await this.applyNoiseReductionWASM(imageData, effect.parameters.strength || 0.5);
           effectsApplied++;
           break;
         default:
@@ -335,11 +340,30 @@ export class FrameExtractionService {
     console.log(`✅ Applied ${effectsApplied} effects to clip ${clip.name}`);
 
     // Put the modified image data back to canvas
-    this.ctx.putImageData(
-      imageData, 
-      Math.floor(renderInfo.dx), 
-      Math.floor(renderInfo.dy)
-    );
+    // For transforms, the imageData dimensions might have changed, so we need to handle positioning
+    if (clip.effects.some(e => e.type === 'transform' && e.enabled)) {
+      // For transformed clips, clear the area first and center the result
+      this.ctx.clearRect(
+        Math.floor(renderInfo.dx), 
+        Math.floor(renderInfo.dy),
+        Math.ceil(renderInfo.dWidth),
+        Math.ceil(renderInfo.dHeight)
+      );
+      
+      // Center the transformed image in the original area
+      const centerX = Math.floor(renderInfo.dx + (renderInfo.dWidth - imageData.width) / 2);
+      const centerY = Math.floor(renderInfo.dy + (renderInfo.dHeight - imageData.height) / 2);
+      
+      this.ctx.putImageData(imageData, centerX, centerY);
+      console.log(`🔄 Placed transformed imageData (${imageData.width}x${imageData.height}) at centered position (${centerX},${centerY})`);
+    } else {
+      // Normal positioning for non-transformed clips
+      this.ctx.putImageData(
+        imageData, 
+        Math.floor(renderInfo.dx), 
+        Math.floor(renderInfo.dy)
+      );
+    }
   }
 
   private applyColorCorrection(imageData: ImageData, params: Record<string, number>): void {
@@ -639,6 +663,139 @@ export class FrameExtractionService {
           data[idx] = current + (median - current) * strength;
         }
       }
+    }
+  }
+
+  // ===== C/WASM FILTER METHODS FOR EXPORT =====
+  
+  private async applyBlurWASM(imageData: ImageData, radius: number): Promise<void> {
+    try {
+      await videoService.initialize();
+      const frameData = new Uint8Array(imageData.data);
+      videoService.applyBlurFilter(frameData, imageData.width, imageData.height, radius);
+      // Copy back to imageData
+      imageData.data.set(frameData);
+      console.log(`🌫️ Applied C/WASM blur filter in export (radius: ${radius})`);
+    } catch (error) {
+      console.error('❌ C/WASM blur filter failed in export:', error);
+      throw error;
+    }
+  }
+
+  private async applySharpenWASM(imageData: ImageData, intensity: number): Promise<void> {
+    try {
+      await videoService.initialize();
+      const frameData = new Uint8Array(imageData.data);
+      videoService.applySharpenFilter(frameData, imageData.width, imageData.height, intensity);
+      // Copy back to imageData
+      imageData.data.set(frameData);
+      console.log(`⚡ Applied C/WASM sharpen filter in export (intensity: ${intensity})`);
+    } catch (error) {
+      console.error('❌ C/WASM sharpen filter failed in export:', error);
+      throw error;
+    }
+  }
+
+  private async applyNoiseReductionWASM(imageData: ImageData, strength: number): Promise<void> {
+    try {
+      await videoService.initialize();
+      const frameData = new Uint8Array(imageData.data);
+      videoService.applyNoiseReduction(frameData, imageData.width, imageData.height, strength);
+      // Copy back to imageData
+      imageData.data.set(frameData);
+      console.log(`🔧 Applied C/WASM noise reduction in export (strength: ${strength})`);
+    } catch (error) {
+      console.error('❌ C/WASM noise reduction failed in export:', error);
+      throw error;
+    }
+  }
+
+  // ===== JAVASCRIPT TRANSFORM METHODS FOR EXPORT =====
+  
+  private applyTransformJS(imageData: ImageData, params: Record<string, any>): ImageData {
+    const {
+      scale = 100,
+      rotation = 0,
+      flipHorizontal = false,
+      flipVertical = false,
+      cropX = 0,
+      cropY = 0,
+      cropWidth = 100,
+      cropHeight = 100
+    } = params;
+
+    console.log(`🔄 Applying JS transform in export: scale=${scale}%, rotation=${rotation}°, flip H/V=${flipHorizontal}/${flipVertical}, crop=${cropX},${cropY} ${cropWidth}x${cropHeight}%`);
+
+    try {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d')!;
+      
+      // Original dimensions
+      const originalWidth = imageData.width;
+      const originalHeight = imageData.height;
+      
+      // Calculate crop area in pixels
+      const cropXPixels = Math.floor((cropX / 100) * originalWidth);
+      const cropYPixels = Math.floor((cropY / 100) * originalHeight);
+      const cropWidthPixels = Math.floor((cropWidth / 100) * originalWidth);
+      const cropHeightPixels = Math.floor((cropHeight / 100) * originalHeight);
+      
+      // Create temporary canvas for original image
+      const tempCanvas = document.createElement('canvas');
+      const tempCtx = tempCanvas.getContext('2d')!;
+      tempCanvas.width = originalWidth;
+      tempCanvas.height = originalHeight;
+      tempCtx.putImageData(imageData, 0, 0);
+      
+      // Set output canvas size (after scaling)
+      const scaleFactor = scale / 100;
+      canvas.width = Math.floor(cropWidthPixels * scaleFactor);
+      canvas.height = Math.floor(cropHeightPixels * scaleFactor);
+      
+      // Clear the canvas
+      ctx.fillStyle = 'rgba(0,0,0,0)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Apply transforms
+      ctx.save();
+      
+      // Move to center for rotation
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      
+      // Apply rotation
+      if (rotation !== 0) {
+        ctx.rotate((rotation * Math.PI) / 180);
+      }
+      
+      // Apply flipping
+      let scaleX = 1;
+      let scaleY = 1;
+      if (flipHorizontal) scaleX = -1;
+      if (flipVertical) scaleY = -1;
+      if (scaleX !== 1 || scaleY !== 1) {
+        ctx.scale(scaleX, scaleY);
+      }
+      
+      // Draw the cropped and scaled image
+      ctx.drawImage(
+        tempCanvas,
+        cropXPixels, cropYPixels, cropWidthPixels, cropHeightPixels, // Source crop area
+        -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height // Destination (centered)
+      );
+      
+      ctx.restore();
+      
+      // Get the transformed image data
+      const transformedImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      
+      // Return the new transformed ImageData
+      return transformedImageData;
+    } catch (error) {
+      console.error('❌ Transform failed in export:', error);
+      console.error('Transform params:', params);
+      console.error('ImageData dimensions:', imageData.width, 'x', imageData.height);
+      // Return original imageData on error
+      return imageData;
     }
   }
 

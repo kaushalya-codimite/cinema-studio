@@ -415,3 +415,35 @@ void js_apply_noise_reduction(uint8_t* frame_data, int width, int height, float 
     filter_blur(&temp_frame, &noise_params);
     printf("🔧 Applied WASM noise reduction (strength: %.2f) to %dx%d frame\n", strength, width, height);
 }
+
+// WASM Transform Filter
+EMSCRIPTEN_KEEPALIVE
+void js_apply_transform(uint8_t* frame_data, int width, int height, 
+                       float scale, float rotation, int flip_horizontal, int flip_vertical,
+                       int crop_x, int crop_y, int crop_width, int crop_height) {
+    if (!frame_data || width <= 0 || height <= 0) return;
+    
+    // Create temporary video frame structure
+    video_frame_t temp_frame = {
+        .data = frame_data,
+        .width = width,
+        .height = height,
+        .format = 1, // RGBA format
+        .timestamp = 0.0
+    };
+    
+    transform_params_t transform_params = {
+        .scale = scale,
+        .rotation = rotation,
+        .flip_horizontal = flip_horizontal,
+        .flip_vertical = flip_vertical,
+        .crop_x = crop_x,
+        .crop_y = crop_y,
+        .crop_width = crop_width,
+        .crop_height = crop_height
+    };
+    
+    filter_transform(&temp_frame, &transform_params);
+    printf("🔄 Applied WASM transform filter (scale: %.1f%%, rotation: %.1f°, flip_h: %d, flip_v: %d, crop: %d,%d %dx%d) to %dx%d frame\n", 
+           scale, rotation, flip_horizontal, flip_vertical, crop_x, crop_y, crop_width, crop_height, width, height);
+}

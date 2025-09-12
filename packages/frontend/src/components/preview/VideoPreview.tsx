@@ -190,6 +190,17 @@ const VideoPreview: React.FC = () => {
                   console.error('❌ Color correction failed in preview - C/WASM required:', error);
                 }
                 break;
+              case 'transform':
+                try {
+                  await videoService.initialize();
+                  videoService.applyTransform(frameData, width, height, effect.parameters as any);
+                  console.log(`🔄 Applied C/WASM transform in preview`);
+                } catch (error) {
+                  console.error('❌ C/WASM transform failed in preview - C function not implemented yet:', error);
+                  console.log('⚠️ Transform skipped - Preview requires C/WASM implementation');
+                  // NO JAVASCRIPT FALLBACK - Preview must use C/WASM only
+                }
+                break;
               case 'blur':
                 try {
                   await videoService.initialize();
@@ -268,6 +279,7 @@ const VideoPreview: React.FC = () => {
       throw error; // Re-throw to handle at call site
     }
   };
+
 
   const drawErrorMessage = () => {
     const canvas = canvasRef.current;

@@ -148,6 +148,21 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
             gamma: 1,
             exposure: 0
           }
+        },
+        {
+          id: 'transform',
+          type: 'transform',
+          enabled: true,
+          parameters: {
+            scale: 100,
+            rotation: 0,
+            flipHorizontal: false,
+            flipVertical: false,
+            cropX: 0,
+            cropY: 0,
+            cropWidth: 100,
+            cropHeight: 100
+          }
         }
       ]
     };
