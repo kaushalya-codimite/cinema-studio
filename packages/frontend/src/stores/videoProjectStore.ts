@@ -55,6 +55,7 @@ interface VideoProjectStore {
   selectClip: (clipId: string | null) => void;
   updateClipEffect: (clipId: string, effectId: string, parameters: Record<string, number>) => void;
   addEffectToClip: (clipId: string, effectType: string, parameters?: Record<string, number>) => void;
+  clearFiltersFromClip: (clipId: string) => void;
   setCurrentTime: (time: number) => void;
   setPlaying: (playing: boolean) => void;
   setTimelineZoom: (zoom: number) => void;
@@ -244,6 +245,27 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
                       parameters
                     }
                   ]
+                }
+              : clip
+          )
+        }))
+      } : null
+    }));
+  },
+
+  clearFiltersFromClip: (clipId) => {
+    set((state) => ({
+      project: state.project ? {
+        ...state.project,
+        tracks: state.project.tracks.map(track => ({
+          ...track,
+          clips: track.clips.map(clip => 
+            clip.id === clipId 
+              ? {
+                  ...clip,
+                  effects: clip.effects.filter(effect => 
+                    effect.type === 'color_correction' || effect.type === 'transform'
+                  )
                 }
               : clip
           )

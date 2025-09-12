@@ -556,6 +556,191 @@ class VideoService {
     }
   }
 
+  applySepiaFilter(frameData: Uint8Array, width: number, height: number, intensity: number): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for sepia filter');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply sepia filter
+        this.wasmModule!.ccall(
+          'js_apply_sepia_filter',
+          'void',
+          ['number', 'number', 'number', 'number'],
+          [dataPtr, width, height, intensity]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`🟤 Applied WASM sepia filter (intensity: ${intensity})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM sepia filter:', error);
+      throw error;
+    }
+  }
+
+  applyBlackAndWhiteFilter(frameData: Uint8Array, width: number, height: number, intensity: number): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for black and white filter');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply black and white filter
+        this.wasmModule!.ccall(
+          'js_apply_black_and_white_filter',
+          'void',
+          ['number', 'number', 'number', 'number'],
+          [dataPtr, width, height, intensity]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`🔳 Applied WASM black and white filter (intensity: ${intensity})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM black and white filter:', error);
+      throw error;
+    }
+  }
+
+  applyVintageFilter(frameData: Uint8Array, width: number, height: number, intensity: number): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for vintage filter');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply vintage filter
+        this.wasmModule!.ccall(
+          'js_apply_vintage_filter',
+          'void',
+          ['number', 'number', 'number', 'number'],
+          [dataPtr, width, height, intensity]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`🎞️ Applied WASM vintage filter (intensity: ${intensity})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM vintage filter:', error);
+      throw error;
+    }
+  }
+
+  applyVignetteFilter(frameData: Uint8Array, width: number, height: number, intensity: number): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for vignette filter');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply vignette filter
+        this.wasmModule!.ccall(
+          'js_apply_vignette_filter',
+          'void',
+          ['number', 'number', 'number', 'number'],
+          [dataPtr, width, height, intensity]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`⚫ Applied WASM vignette filter (intensity: ${intensity})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM vignette filter:', error);
+      throw error;
+    }
+  }
+
+  applyEdgeDetectionFilter(frameData: Uint8Array, width: number, height: number, intensity: number): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const dataPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frameData.length]);
+      if (!dataPtr) {
+        throw new Error('Failed to allocate WASM memory for edge detection filter');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frameData, dataPtr);
+        
+        // Apply edge detection filter
+        this.wasmModule!.ccall(
+          'js_apply_edge_detection_filter',
+          'void',
+          ['number', 'number', 'number', 'number'],
+          [dataPtr, width, height, intensity]
+        );
+
+        // Copy processed data back
+        this.copyArrayFromWasm(dataPtr, frameData.length, frameData);
+        console.log(`🔍 Applied WASM edge detection filter (intensity: ${intensity})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [dataPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM edge detection filter:', error);
+      throw error;
+    }
+  }
+
   applyAdvancedColorCorrection(framePtr: number, params: ColorCorrectionParams): void {
     this.ensureInitialized();
     

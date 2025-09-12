@@ -228,6 +228,51 @@ const VideoPreview: React.FC = () => {
                   console.error('❌ WASM noise reduction failed in preview:', error);
                 }
                 break;
+              case 'sepia':
+                try {
+                  await videoService.initialize();
+                  videoService.applySepiaFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+                  console.log(`🟤 Applied WASM sepia filter in preview (intensity: ${effect.parameters.intensity})`);
+                } catch (error) {
+                  console.error('❌ WASM sepia failed in preview:', error);
+                }
+                break;
+              case 'black_and_white':
+                try {
+                  await videoService.initialize();
+                  videoService.applyBlackAndWhiteFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+                  console.log(`🔳 Applied WASM black and white filter in preview (intensity: ${effect.parameters.intensity})`);
+                } catch (error) {
+                  console.error('❌ WASM black and white failed in preview:', error);
+                }
+                break;
+              case 'vintage':
+                try {
+                  await videoService.initialize();
+                  videoService.applyVintageFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+                  console.log(`🎞️ Applied WASM vintage filter in preview (intensity: ${effect.parameters.intensity})`);
+                } catch (error) {
+                  console.error('❌ WASM vintage failed in preview:', error);
+                }
+                break;
+              case 'vignette':
+                try {
+                  await videoService.initialize();
+                  videoService.applyVignetteFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+                  console.log(`⚫ Applied WASM vignette filter in preview (intensity: ${effect.parameters.intensity})`);
+                } catch (error) {
+                  console.error('❌ WASM vignette failed in preview:', error);
+                }
+                break;
+              case 'edge_detection':
+                try {
+                  await videoService.initialize();
+                  videoService.applyEdgeDetectionFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+                  console.log(`🔍 Applied WASM edge detection filter in preview (intensity: ${effect.parameters.intensity})`);
+                } catch (error) {
+                  console.error('❌ WASM edge detection failed in preview:', error);
+                }
+                break;
               default:
                 console.warn(`❓ Unknown effect type in preview: ${effect.type}`);
             }

@@ -332,6 +332,26 @@ export class FrameExtractionService {
           await this.applyNoiseReductionWASM(imageData, effect.parameters.strength || 0.5);
           effectsApplied++;
           break;
+        case 'sepia':
+          this.applySepiaJS(imageData, effect.parameters.intensity || 0.5);
+          effectsApplied++;
+          break;
+        case 'black_and_white':
+          this.applyBlackAndWhiteJS(imageData, effect.parameters.intensity || 0.5);
+          effectsApplied++;
+          break;
+        case 'vintage':
+          this.applyVintageJS(imageData, effect.parameters.intensity || 0.5);
+          effectsApplied++;
+          break;
+        case 'vignette':
+          this.applyVignetteJS(imageData, effect.parameters.intensity || 0.5);
+          effectsApplied++;
+          break;
+        case 'edge_detection':
+          this.applyEdgeDetectionJS(imageData, effect.parameters.intensity || 0.5);
+          effectsApplied++;
+          break;
         default:
           console.warn(`❌ Unknown effect type: ${effect.type}`);
       }
@@ -796,6 +816,258 @@ export class FrameExtractionService {
       console.error('ImageData dimensions:', imageData.width, 'x', imageData.height);
       // Return original imageData on error
       return imageData;
+    }
+  }
+
+  // ===== JAVASCRIPT SEPIA METHODS FOR EXPORT =====
+  
+  private applySepiaJS(imageData: ImageData, intensity: number): void {
+    if (intensity < 0) return;
+    
+    const data = imageData.data;
+    console.log(`🟤 Applying JS sepia in export: intensity=${intensity}`);
+    
+    // Process each pixel - match WASM implementation exactly
+    for (let i = 0; i < data.length; i += 4) {
+      // Get original RGB values
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      // Alpha stays the same (data[i + 3])
+      
+      // Convert to float for calculations (0-1 range)
+      const rf = r / 255.0;
+      const gf = g / 255.0;
+      const bf = b / 255.0;
+      
+      // Classic sepia tone formula (EXACT match with C implementation)
+      const sepia_r = (rf * 0.393) + (gf * 0.769) + (bf * 0.189);
+      const sepia_g = (rf * 0.349) + (gf * 0.686) + (bf * 0.168);
+      const sepia_b = (rf * 0.272) + (gf * 0.534) + (bf * 0.131);
+      
+      // Clamp to valid range
+      const clamped_r = Math.min(sepia_r, 1.0);
+      const clamped_g = Math.min(sepia_g, 1.0);
+      const clamped_b = Math.min(sepia_b, 1.0);
+      
+      // Mix with original based on intensity (0.0 = original, 1.0 = full sepia)
+      const final_r = rf + (clamped_r - rf) * intensity;
+      const final_g = gf + (clamped_g - gf) * intensity;
+      const final_b = bf + (clamped_b - bf) * intensity;
+      
+      // Convert back to uint8_t (with proper rounding like C)
+      data[i] = Math.round(final_r * 255.0);
+      data[i + 1] = Math.round(final_g * 255.0);
+      data[i + 2] = Math.round(final_b * 255.0);
+      // data[i + 3] (alpha) remains unchanged
+    }
+  }
+
+  // ===== JAVASCRIPT BLACK AND WHITE METHODS FOR EXPORT =====
+  
+  private applyBlackAndWhiteJS(imageData: ImageData, intensity: number): void {
+    if (intensity < 0) return;
+    
+    const data = imageData.data;
+    console.log(`🔳 Applying JS black and white in export: intensity=${intensity}`);
+    
+    // Process each pixel - match WASM implementation exactly
+    for (let i = 0; i < data.length; i += 4) {
+      // Get original RGB values
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      // Alpha stays the same (data[i + 3])
+      
+      // Convert to float for calculations (0-1 range)
+      const rf = r / 255.0;
+      const gf = g / 255.0;
+      const bf = b / 255.0;
+      
+      // Use luminance formula (ITU-R BT.709 standard for HDTV) - EXACT match with C implementation
+      const luminance = 0.2126 * rf + 0.7152 * gf + 0.0722 * bf;
+      
+      // Mix with original based on intensity (0.0 = original, 1.0 = full black and white)
+      const final_r = rf + (luminance - rf) * intensity;
+      const final_g = gf + (luminance - gf) * intensity;
+      const final_b = bf + (luminance - bf) * intensity;
+      
+      // Clamp values to [0,1] range
+      const clamped_r = Math.max(0.0, Math.min(1.0, final_r));
+      const clamped_g = Math.max(0.0, Math.min(1.0, final_g));
+      const clamped_b = Math.max(0.0, Math.min(1.0, final_b));
+      
+      // Convert back to uint8_t (with proper rounding like C)
+      data[i] = Math.round(clamped_r * 255.0);
+      data[i + 1] = Math.round(clamped_g * 255.0);
+      data[i + 2] = Math.round(clamped_b * 255.0);
+      // data[i + 3] (alpha) remains unchanged
+    }
+  }
+
+  // ===== JAVASCRIPT VINTAGE METHODS FOR EXPORT =====
+  
+  private applyVintageJS(imageData: ImageData, intensity: number): void {
+    if (intensity < 0) return;
+    
+    const data = imageData.data;
+    console.log(`🎞️ Applying JS vintage in export: intensity=${intensity}`);
+    
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      
+      const rf = r / 255.0;
+      const gf = g / 255.0;
+      const bf = b / 255.0;
+      
+      // EXACT match with C implementation
+      let vintage_r = rf * 0.9 + gf * 0.5 + bf * 0.3;
+      let vintage_g = rf * 0.3 + gf * 0.8 + bf * 0.3;
+      let vintage_b = rf * 0.2 + gf * 0.3 + bf * 0.7;
+      
+      // Reduce contrast slightly for soft look
+      vintage_r = 0.3 + vintage_r * 0.7;
+      vintage_g = 0.3 + vintage_g * 0.7;
+      vintage_b = 0.3 + vintage_b * 0.7;
+      
+      // Clamp to valid range
+      vintage_r = Math.max(0.0, Math.min(1.0, vintage_r));
+      vintage_g = Math.max(0.0, Math.min(1.0, vintage_g));
+      vintage_b = Math.max(0.0, Math.min(1.0, vintage_b));
+      
+      // Mix with original based on intensity
+      const final_r = rf + (vintage_r - rf) * intensity;
+      const final_g = gf + (vintage_g - gf) * intensity;
+      const final_b = bf + (vintage_b - bf) * intensity;
+      
+      const clamped_r = Math.max(0.0, Math.min(1.0, final_r));
+      const clamped_g = Math.max(0.0, Math.min(1.0, final_g));
+      const clamped_b = Math.max(0.0, Math.min(1.0, final_b));
+      
+      data[i] = Math.round(clamped_r * 255.0);
+      data[i + 1] = Math.round(clamped_g * 255.0);
+      data[i + 2] = Math.round(clamped_b * 255.0);
+    }
+  }
+
+  // ===== JAVASCRIPT VIGNETTE METHODS FOR EXPORT =====
+  
+  private applyVignetteJS(imageData: ImageData, intensity: number): void {
+    if (intensity < 0) return;
+    
+    const data = imageData.data;
+    const width = imageData.width;
+    const height = imageData.height;
+    console.log(`⚫ Applying JS vignette in export: intensity=${intensity}`);
+    
+    const center_x = width * 0.5;
+    const center_y = height * 0.5;
+    const max_distance = Math.sqrt(center_x * center_x + center_y * center_y);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const i = (y * width + x) * 4;
+        
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        
+        const dx = x - center_x;
+        const dy = y - center_y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        const distance_ratio = distance / max_distance;
+        let vignette_factor = 1.0 - Math.pow(distance_ratio, 1.5);
+        vignette_factor = Math.max(0.0, Math.min(1.0, vignette_factor));
+        
+        const final_vignette = 1.0 - (1.0 - vignette_factor) * intensity;
+        
+        const rf = (r / 255.0) * final_vignette;
+        const gf = (g / 255.0) * final_vignette;
+        const bf = (b / 255.0) * final_vignette;
+        
+        data[i] = Math.round(Math.max(0.0, Math.min(1.0, rf)) * 255.0);
+        data[i + 1] = Math.round(Math.max(0.0, Math.min(1.0, gf)) * 255.0);
+        data[i + 2] = Math.round(Math.max(0.0, Math.min(1.0, bf)) * 255.0);
+      }
+    }
+  }
+
+  // ===== JAVASCRIPT EDGE DETECTION METHODS FOR EXPORT =====
+  
+  private applyEdgeDetectionJS(imageData: ImageData, intensity: number): void {
+    if (intensity < 0) return;
+    
+    const data = imageData.data;
+    const width = imageData.width;
+    const height = imageData.height;
+    console.log(`🔍 Applying JS edge detection in export: intensity=${intensity}`);
+    
+    const tempData = new Uint8ClampedArray(data);
+    
+    const sobel_x = [
+      [-1, 0, 1],
+      [-2, 0, 2],
+      [-1, 0, 1]
+    ];
+    
+    const sobel_y = [
+      [-1, -2, -1],
+      [ 0,  0,  0],
+      [ 1,  2,  1]
+    ];
+    
+    for (let y = 1; y < height - 1; y++) {
+      for (let x = 1; x < width - 1; x++) {
+        const i = (y * width + x) * 4;
+        
+        let gx_r = 0, gx_g = 0, gx_b = 0;
+        let gy_r = 0, gy_g = 0, gy_b = 0;
+        
+        for (let ky = -1; ky <= 1; ky++) {
+          for (let kx = -1; kx <= 1; kx++) {
+            const sample_x = x + kx;
+            const sample_y = y + ky;
+            const sample_i = (sample_y * width + sample_x) * 4;
+            
+            const r = tempData[sample_i] / 255.0;
+            const g = tempData[sample_i + 1] / 255.0;
+            const b = tempData[sample_i + 2] / 255.0;
+            
+            const kernel_x = sobel_x[ky + 1][kx + 1];
+            const kernel_y = sobel_y[ky + 1][kx + 1];
+            
+            gx_r += r * kernel_x;
+            gx_g += g * kernel_x;
+            gx_b += b * kernel_x;
+            
+            gy_r += r * kernel_y;
+            gy_g += g * kernel_y;
+            gy_b += b * kernel_y;
+          }
+        }
+        
+        const magnitude_r = Math.sqrt(gx_r * gx_r + gy_r * gy_r);
+        const magnitude_g = Math.sqrt(gx_g * gx_g + gy_g * gy_g);
+        const magnitude_b = Math.sqrt(gx_b * gx_b + gy_b * gy_b);
+        
+        let edge_strength = (magnitude_r + magnitude_g + magnitude_b) / 3.0;
+        edge_strength = Math.max(0.0, Math.min(1.0, edge_strength * 3.0));
+        
+        const orig_r = tempData[i] / 255.0;
+        const orig_g = tempData[i + 1] / 255.0;
+        const orig_b = tempData[i + 2] / 255.0;
+        
+        const final_r = orig_r + (edge_strength - orig_r) * intensity;
+        const final_g = orig_g + (edge_strength - orig_g) * intensity;
+        const final_b = orig_b + (edge_strength - orig_b) * intensity;
+        
+        data[i] = Math.round(Math.max(0.0, Math.min(1.0, final_r)) * 255.0);
+        data[i + 1] = Math.round(Math.max(0.0, Math.min(1.0, final_g)) * 255.0);
+        data[i + 2] = Math.round(Math.max(0.0, Math.min(1.0, final_b)) * 255.0);
+      }
     }
   }
 

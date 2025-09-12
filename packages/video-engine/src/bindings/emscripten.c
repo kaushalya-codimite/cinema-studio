@@ -447,3 +447,93 @@ void js_apply_transform(uint8_t* frame_data, int width, int height,
     printf("🔄 Applied WASM transform filter (scale: %.1f%%, rotation: %.1f°, flip_h: %d, flip_v: %d, crop: %d,%d %dx%d) to %dx%d frame\n", 
            scale, rotation, flip_horizontal, flip_vertical, crop_x, crop_y, crop_width, crop_height, width, height);
 }
+
+// WASM Sepia Filter
+EMSCRIPTEN_KEEPALIVE
+void js_apply_sepia_filter(uint8_t* frame_data, int width, int height, float intensity) {
+    if (!frame_data || width <= 0 || height <= 0 || intensity < 0.0f) return;
+    
+    // Create temporary video frame structure
+    video_frame_t temp_frame = {
+        .data = frame_data,
+        .width = width,
+        .height = height,
+        .format = 1, // RGBA format
+        .timestamp = 0.0
+    };
+    
+    filter_sepia(&temp_frame, intensity);
+    printf("🟤 Applied WASM sepia filter (intensity: %.2f) to %dx%d frame\n", intensity, width, height);
+}
+
+// WASM Black and White Filter
+EMSCRIPTEN_KEEPALIVE
+void js_apply_black_and_white_filter(uint8_t* frame_data, int width, int height, float intensity) {
+    if (!frame_data || width <= 0 || height <= 0 || intensity < 0.0f) return;
+    
+    // Create temporary video frame structure
+    video_frame_t temp_frame = {
+        .data = frame_data,
+        .width = width,
+        .height = height,
+        .format = 1, // RGBA format
+        .timestamp = 0.0
+    };
+    
+    filter_black_and_white(&temp_frame, intensity);
+    printf("🔳 Applied WASM black and white filter (intensity: %.2f) to %dx%d frame\n", intensity, width, height);
+}
+
+// WASM Vintage Filter
+EMSCRIPTEN_KEEPALIVE
+void js_apply_vintage_filter(uint8_t* frame_data, int width, int height, float intensity) {
+    if (!frame_data || width <= 0 || height <= 0 || intensity < 0.0f) return;
+    
+    // Create temporary video frame structure
+    video_frame_t temp_frame = {
+        .data = frame_data,
+        .width = width,
+        .height = height,
+        .format = 1, // RGBA format
+        .timestamp = 0.0
+    };
+    
+    filter_vintage(&temp_frame, intensity);
+    printf("🎞️ Applied WASM vintage filter (intensity: %.2f) to %dx%d frame\n", intensity, width, height);
+}
+
+// WASM Vignette Filter
+EMSCRIPTEN_KEEPALIVE
+void js_apply_vignette_filter(uint8_t* frame_data, int width, int height, float intensity) {
+    if (!frame_data || width <= 0 || height <= 0 || intensity < 0.0f) return;
+    
+    // Create temporary video frame structure
+    video_frame_t temp_frame = {
+        .data = frame_data,
+        .width = width,
+        .height = height,
+        .format = 1, // RGBA format
+        .timestamp = 0.0
+    };
+    
+    filter_vignette(&temp_frame, intensity);
+    printf("⚫ Applied WASM vignette filter (intensity: %.2f) to %dx%d frame\n", intensity, width, height);
+}
+
+// WASM Edge Detection Filter
+EMSCRIPTEN_KEEPALIVE
+void js_apply_edge_detection_filter(uint8_t* frame_data, int width, int height, float intensity) {
+    if (!frame_data || width <= 0 || height <= 0 || intensity < 0.0f) return;
+    
+    // Create temporary video frame structure
+    video_frame_t temp_frame = {
+        .data = frame_data,
+        .width = width,
+        .height = height,
+        .format = 1, // RGBA format
+        .timestamp = 0.0
+    };
+    
+    filter_edge_detection_new(&temp_frame, intensity);
+    printf("🔍 Applied WASM edge detection filter (intensity: %.2f) to %dx%d frame\n", intensity, width, height);
+}

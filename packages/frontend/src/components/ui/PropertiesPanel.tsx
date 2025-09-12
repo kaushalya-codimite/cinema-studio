@@ -5,7 +5,7 @@ import { videoFileService } from '../../services/videoFileService';
 import type { VideoExporter } from '../../wasm/video-engine.d.ts';
 
 const PropertiesPanel: React.FC = () => {
-  const { project, updateClipEffect, addEffectToClip } = useVideoProjectStore();
+  const { project, updateClipEffect, addEffectToClip, clearFiltersFromClip } = useVideoProjectStore();
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
   
@@ -454,6 +454,320 @@ const PropertiesPanel: React.FC = () => {
           }}
         >
           🔧 Noise Reduction (C)
+        </button>
+        <button 
+          className="secondary" 
+          style={{ width: '100%', marginBottom: '12px' }}
+          onClick={async () => {
+            if (selectedClip && project) {
+              console.log('🟤 Applying WASM sepia filter...');
+              try {
+                await videoService.initialize();
+                
+                const videoTrack = project.tracks.find(t => t.type === 'video');
+                if (videoTrack) {
+                  const activeClip = videoTrack.clips.find(clip => 
+                    project.currentTime >= clip.startTime && project.currentTime <= clip.endTime
+                  );
+                  
+                  if (activeClip) {
+                    const videoTime = project.currentTime - activeClip.startTime;
+                    const frame = await videoFileService.extractFrame(activeClip.videoInfo, videoTime);
+                    
+                    if (frame) {
+                      let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
+                      videoService.applySepiaFilter(frameData, frame.imageData.width, frame.imageData.height, 0.8);
+                      
+                      // Update canvas display with filtered result
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          const processedImageData = new ImageData(
+                            new Uint8ClampedArray(frameData),
+                            frame.imageData.width,
+                            frame.imageData.height
+                          );
+                          ctx.putImageData(processedImageData, 0, 0);
+                          console.log('✅ WASM sepia filter applied and canvas updated!');
+                        }
+                      }
+                      
+                      // Add sepia effect persistently to the selected clip for export
+                      if (selectedClip) {
+                        addEffectToClip(selectedClip.id, 'sepia', { intensity: 0.8 });
+                        console.log('✅ Sepia effect added to clip for export!');
+                      }
+                    }
+                  }
+                }
+              } catch (error) {
+                console.error('❌ WASM sepia filter failed:', error);
+              }
+            }
+          }}
+        >
+          🟤 Sepia (WASM)
+        </button>
+        <button 
+          className="secondary" 
+          style={{ width: '100%', marginBottom: '12px' }}
+          onClick={async () => {
+            if (selectedClip && project) {
+              console.log('🔳 Applying WASM black and white filter...');
+              try {
+                await videoService.initialize();
+                
+                const videoTrack = project.tracks.find(t => t.type === 'video');
+                if (videoTrack) {
+                  const activeClip = videoTrack.clips.find(clip => 
+                    project.currentTime >= clip.startTime && project.currentTime <= clip.endTime
+                  );
+                  
+                  if (activeClip) {
+                    const videoTime = project.currentTime - activeClip.startTime;
+                    const frame = await videoFileService.extractFrame(activeClip.videoInfo, videoTime);
+                    
+                    if (frame) {
+                      let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
+                      videoService.applyBlackAndWhiteFilter(frameData, frame.imageData.width, frame.imageData.height, 0.8);
+                      
+                      // Update canvas display with filtered result
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          const processedImageData = new ImageData(
+                            new Uint8ClampedArray(frameData),
+                            frame.imageData.width,
+                            frame.imageData.height
+                          );
+                          ctx.putImageData(processedImageData, 0, 0);
+                          console.log('✅ WASM black and white filter applied and canvas updated!');
+                        }
+                      }
+                      
+                      // Add black and white effect persistently to the selected clip for export
+                      if (selectedClip) {
+                        addEffectToClip(selectedClip.id, 'black_and_white', { intensity: 0.8 });
+                        console.log('✅ Black and white effect added to clip for export!');
+                      }
+                    }
+                  }
+                }
+              } catch (error) {
+                console.error('❌ WASM black and white filter failed:', error);
+              }
+            }
+          }}
+        >
+          🔳 Black & White (WASM)
+        </button>
+        <button 
+          className="secondary" 
+          style={{ width: '100%', marginBottom: '12px' }}
+          onClick={async () => {
+            if (selectedClip && project) {
+              console.log('🎞️ Applying WASM vintage filter...');
+              try {
+                await videoService.initialize();
+                
+                const videoTrack = project.tracks.find(t => t.type === 'video');
+                if (videoTrack) {
+                  const activeClip = videoTrack.clips.find(clip => 
+                    project.currentTime >= clip.startTime && project.currentTime <= clip.endTime
+                  );
+                  
+                  if (activeClip) {
+                    const videoTime = project.currentTime - activeClip.startTime;
+                    const frame = await videoFileService.extractFrame(activeClip.videoInfo, videoTime);
+                    
+                    if (frame) {
+                      let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
+                      videoService.applyVintageFilter(frameData, frame.imageData.width, frame.imageData.height, 0.8);
+                      
+                      // Update canvas display with filtered result
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          const processedImageData = new ImageData(
+                            new Uint8ClampedArray(frameData),
+                            frame.imageData.width,
+                            frame.imageData.height
+                          );
+                          ctx.putImageData(processedImageData, 0, 0);
+                          console.log('✅ WASM vintage filter applied and canvas updated!');
+                        }
+                      }
+                      
+                      // Add vintage effect persistently to the selected clip for export
+                      if (selectedClip) {
+                        addEffectToClip(selectedClip.id, 'vintage', { intensity: 0.8 });
+                        console.log('✅ Vintage effect added to clip for export!');
+                      }
+                    }
+                  }
+                }
+              } catch (error) {
+                console.error('❌ WASM vintage filter failed:', error);
+              }
+            }
+          }}
+        >
+          🎞️ Vintage (WASM)
+        </button>
+        <button 
+          className="secondary" 
+          style={{ width: '100%', marginBottom: '12px' }}
+          onClick={async () => {
+            if (selectedClip && project) {
+              console.log('⚫ Applying WASM vignette filter...');
+              try {
+                await videoService.initialize();
+                
+                const videoTrack = project.tracks.find(t => t.type === 'video');
+                if (videoTrack) {
+                  const activeClip = videoTrack.clips.find(clip => 
+                    project.currentTime >= clip.startTime && project.currentTime <= clip.endTime
+                  );
+                  
+                  if (activeClip) {
+                    const videoTime = project.currentTime - activeClip.startTime;
+                    const frame = await videoFileService.extractFrame(activeClip.videoInfo, videoTime);
+                    
+                    if (frame) {
+                      let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
+                      videoService.applyVignetteFilter(frameData, frame.imageData.width, frame.imageData.height, 0.8);
+                      
+                      // Update canvas display with filtered result
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          const processedImageData = new ImageData(
+                            new Uint8ClampedArray(frameData),
+                            frame.imageData.width,
+                            frame.imageData.height
+                          );
+                          ctx.putImageData(processedImageData, 0, 0);
+                          console.log('✅ WASM vignette filter applied and canvas updated!');
+                        }
+                      }
+                      
+                      // Add vignette effect persistently to the selected clip for export
+                      if (selectedClip) {
+                        addEffectToClip(selectedClip.id, 'vignette', { intensity: 0.8 });
+                        console.log('✅ Vignette effect added to clip for export!');
+                      }
+                    }
+                  }
+                }
+              } catch (error) {
+                console.error('❌ WASM vignette filter failed:', error);
+              }
+            }
+          }}
+        >
+          ⚫ Vignette (WASM)
+        </button>
+        <button 
+          className="secondary" 
+          style={{ width: '100%', marginBottom: '12px' }}
+          onClick={async () => {
+            if (selectedClip && project) {
+              console.log('🔍 Applying WASM edge detection filter...');
+              try {
+                await videoService.initialize();
+                
+                const videoTrack = project.tracks.find(t => t.type === 'video');
+                if (videoTrack) {
+                  const activeClip = videoTrack.clips.find(clip => 
+                    project.currentTime >= clip.startTime && project.currentTime <= clip.endTime
+                  );
+                  
+                  if (activeClip) {
+                    const videoTime = project.currentTime - activeClip.startTime;
+                    const frame = await videoFileService.extractFrame(activeClip.videoInfo, videoTime);
+                    
+                    if (frame) {
+                      let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
+                      videoService.applyEdgeDetectionFilter(frameData, frame.imageData.width, frame.imageData.height, 0.8);
+                      
+                      // Update canvas display with filtered result
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          const processedImageData = new ImageData(
+                            new Uint8ClampedArray(frameData),
+                            frame.imageData.width,
+                            frame.imageData.height
+                          );
+                          ctx.putImageData(processedImageData, 0, 0);
+                          console.log('✅ WASM edge detection filter applied and canvas updated!');
+                        }
+                      }
+                      
+                      // Add edge detection effect persistently to the selected clip for export
+                      if (selectedClip) {
+                        addEffectToClip(selectedClip.id, 'edge_detection', { intensity: 0.8 });
+                        console.log('✅ Edge detection effect added to clip for export!');
+                      }
+                    }
+                  }
+                }
+              } catch (error) {
+                console.error('❌ WASM edge detection filter failed:', error);
+              }
+            }
+          }}
+        >
+          🔍 Edge Detection (WASM)
+        </button>
+        
+        <button 
+          className="danger" 
+          style={{ width: '100%', marginTop: '12px' }}
+          onClick={async () => {
+            if (selectedClip && project) {
+              console.log('🧹 Clearing all filters from clip...');
+              try {
+                // Clear filters from store
+                clearFiltersFromClip(selectedClip.id);
+                console.log('✅ All filters cleared from clip!');
+                
+                // Refresh preview with original video
+                const videoTrack = project.tracks.find(t => t.type === 'video');
+                if (videoTrack) {
+                  const activeClip = videoTrack.clips.find(clip => 
+                    project.currentTime >= clip.startTime && project.currentTime <= clip.endTime
+                  );
+                  
+                  if (activeClip) {
+                    const videoTime = project.currentTime - activeClip.startTime;
+                    const frame = await videoFileService.extractFrame(activeClip.videoInfo, videoTime);
+                    
+                    if (frame) {
+                      // Display original frame without any filters
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                          ctx.putImageData(frame.imageData, 0, 0);
+                          console.log('✅ Canvas refreshed with original frame!');
+                        }
+                      }
+                    }
+                  }
+                }
+              } catch (error) {
+                console.error('❌ Clear filters failed:', error);
+              }
+            }
+          }}
+        >
+          🧹 Clear All Filters
         </button>
       </div>
 

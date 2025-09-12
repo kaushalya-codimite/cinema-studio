@@ -62,6 +62,11 @@ EMSCRIPTEN_KEEPALIVE void filter_sharpen(video_frame_t* frame, float intensity);
 EMSCRIPTEN_KEEPALIVE void filter_edge_detection(video_frame_t* frame, float threshold);
 EMSCRIPTEN_KEEPALIVE void filter_noise_reduction(video_frame_t* frame, float strength);
 EMSCRIPTEN_KEEPALIVE void filter_transform(video_frame_t* frame, transform_params_t* params);
+EMSCRIPTEN_KEEPALIVE void filter_sepia(video_frame_t* frame, float intensity);
+EMSCRIPTEN_KEEPALIVE void filter_black_and_white(video_frame_t* frame, float intensity);
+EMSCRIPTEN_KEEPALIVE void filter_vintage(video_frame_t* frame, float intensity);
+EMSCRIPTEN_KEEPALIVE void filter_vignette(video_frame_t* frame, float intensity);
+EMSCRIPTEN_KEEPALIVE void filter_edge_detection_new(video_frame_t* frame, float intensity);
 
 // Real-time filter application
 EMSCRIPTEN_KEEPALIVE void apply_real_time_filter(uint8_t* frame_data, int width, int height, 
