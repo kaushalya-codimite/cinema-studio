@@ -184,7 +184,11 @@ const VideoPreview: React.FC = () => {
             
             switch (effect.type) {
               case 'color_correction':
-                applyColorCorrectionJS(frameData, width, height, effect.parameters as any);
+                try {
+                  await applyColorCorrectionWASM(frameData, width, height, effect.parameters as any);
+                } catch (error) {
+                  console.error('❌ Color correction failed in preview - C/WASM required:', error);
+                }
                 break;
               case 'blur':
                 try {
@@ -253,36 +257,15 @@ const VideoPreview: React.FC = () => {
     }
   };
 
-  const applyColorCorrectionJS = (frameData: Uint8Array, width: number, height: number, params: any) => {
-    // Use WASM for color correction if available, otherwise fallback to JS
+  const applyColorCorrectionWASM = async (frameData: Uint8Array, width: number, height: number, params: any) => {
+    // Use C/WASM ONLY for color correction in preview - NO JavaScript fallback
     try {
+      await videoService.initialize();
       videoService.applyColorCorrection(frameData, width, height, params);
-      console.log('✅ Applied WASM color correction');
+      console.log('✅ Applied C/WASM color correction in preview');
     } catch (error) {
-      console.error('❌ WASM color correction failed:', error);
-      console.log('🔄 Fallback to JavaScript color correction');
-      // JavaScript fallback
-      for (let i = 0; i < frameData.length; i += 4) {
-        let r = frameData[i];
-        let g = frameData[i + 1];
-        let b = frameData[i + 2];
-        
-        // Apply brightness
-        const brightness = (params.brightness || 0) * 255;
-        r = Math.max(0, Math.min(255, r + brightness));
-        g = Math.max(0, Math.min(255, g + brightness));
-        b = Math.max(0, Math.min(255, b + brightness));
-        
-        // Apply contrast
-        const contrast = (params.contrast || 0) * 0.5 + 1;
-        r = Math.max(0, Math.min(255, (r - 128) * contrast + 128));
-        g = Math.max(0, Math.min(255, (g - 128) * contrast + 128));
-        b = Math.max(0, Math.min(255, (b - 128) * contrast + 128));
-        
-        frameData[i] = r;
-        frameData[i + 1] = g;
-        frameData[i + 2] = b;
-      }
+      console.error('❌ C/WASM color correction failed in preview:', error);
+      throw error; // Re-throw to handle at call site
     }
   };
 
