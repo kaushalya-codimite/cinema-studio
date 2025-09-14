@@ -769,6 +769,138 @@ class VideoService {
     }
   }
 
+  // Transition methods for preview
+  applyFadeTransition(frame1Data: Uint8Array, frame2Data: Uint8Array, outputData: Uint8Array, width: number, height: number, progress: number): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const frame1Ptr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frame1Data.length]);
+      const frame2Ptr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frame2Data.length]);
+      const outputPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [outputData.length]);
+      
+      if (!frame1Ptr || !frame2Ptr || !outputPtr) {
+        throw new Error('Failed to allocate WASM memory for fade transition');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frame1Data, frame1Ptr);
+        this.copyArrayToWasm(frame2Data, frame2Ptr);
+        
+        // Apply fade transition
+        this.wasmModule!.ccall(
+          'js_apply_fade_transition',
+          'void',
+          ['number', 'number', 'number', 'number', 'number', 'number'],
+          [frame1Ptr, frame2Ptr, outputPtr, width, height, progress]
+        );
+
+        // Copy result back
+        this.copyArrayFromWasm(outputPtr, outputData.length, outputData);
+        console.log(`🎭 Applied WASM fade transition (progress: ${progress})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [frame1Ptr]);
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [frame2Ptr]);
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [outputPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM fade transition:', error);
+      throw error;
+    }
+  }
+
+  applyDissolveTransition(frame1Data: Uint8Array, frame2Data: Uint8Array, outputData: Uint8Array, width: number, height: number, progress: number): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    try {
+      const frame1Ptr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frame1Data.length]);
+      const frame2Ptr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frame2Data.length]);
+      const outputPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [outputData.length]);
+      
+      if (!frame1Ptr || !frame2Ptr || !outputPtr) {
+        throw new Error('Failed to allocate WASM memory for dissolve transition');
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frame1Data, frame1Ptr);
+        this.copyArrayToWasm(frame2Data, frame2Ptr);
+        
+        // Apply dissolve transition
+        this.wasmModule!.ccall(
+          'js_apply_dissolve_transition',
+          'void',
+          ['number', 'number', 'number', 'number', 'number', 'number'],
+          [frame1Ptr, frame2Ptr, outputPtr, width, height, progress]
+        );
+
+        // Copy result back
+        this.copyArrayFromWasm(outputPtr, outputData.length, outputData);
+        console.log(`🌫️ Applied WASM dissolve transition (progress: ${progress})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [frame1Ptr]);
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [frame2Ptr]);
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [outputPtr]);
+      }
+    } catch (error) {
+      console.error('❌ Failed to apply WASM dissolve transition:', error);
+      throw error;
+    }
+  }
+
+  applyWipeTransition(frame1Data: Uint8Array, frame2Data: Uint8Array, outputData: Uint8Array, width: number, height: number, progress: number, direction: 'left' | 'right' | 'up' | 'down'): void {
+    this.ensureInitialized();
+    
+    if (!this.isWasmAvailable()) {
+      throw new Error('🚫 WASM not available - this project requires WASM for video processing!');
+    }
+    
+    const functionName = `js_apply_wipe_${direction}_transition`;
+    
+    try {
+      const frame1Ptr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frame1Data.length]);
+      const frame2Ptr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [frame2Data.length]);
+      const outputPtr = this.wasmModule!.ccall('js_malloc', 'number', ['number'], [outputData.length]);
+      
+      if (!frame1Ptr || !frame2Ptr || !outputPtr) {
+        throw new Error(`Failed to allocate WASM memory for wipe ${direction} transition`);
+      }
+
+      try {
+        // Copy frame data to WASM memory
+        this.copyArrayToWasm(frame1Data, frame1Ptr);
+        this.copyArrayToWasm(frame2Data, frame2Ptr);
+        
+        // Apply wipe transition
+        this.wasmModule!.ccall(
+          functionName,
+          'void',
+          ['number', 'number', 'number', 'number', 'number', 'number'],
+          [frame1Ptr, frame2Ptr, outputPtr, width, height, progress]
+        );
+
+        // Copy result back
+        this.copyArrayFromWasm(outputPtr, outputData.length, outputData);
+        console.log(`👁️ Applied WASM wipe ${direction} transition (progress: ${progress})`);
+      } finally {
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [frame1Ptr]);
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [frame2Ptr]);
+        this.wasmModule!.ccall('js_free', 'void', ['number'], [outputPtr]);
+      }
+    } catch (error) {
+      console.error(`❌ Failed to apply WASM wipe ${direction} transition:`, error);
+      throw error;
+    }
+  }
+
   // Export functionality
   createVideoExporter(width: number, height: number, fps: number, format: 'mp4' | 'webm'): VideoExporter {
     this.ensureInitialized();

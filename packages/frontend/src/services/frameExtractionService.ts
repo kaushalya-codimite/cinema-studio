@@ -1071,6 +1071,200 @@ export class FrameExtractionService {
     }
   }
 
+  // ===== JAVASCRIPT TRANSITION METHODS FOR EXPORT =====
+  
+  private applyFadeTransitionJS(frame1Data: ImageData, frame2Data: ImageData, outputData: ImageData, progress: number): void {
+    const data1 = frame1Data.data;
+    const data2 = frame2Data.data;
+    const output = outputData.data;
+    
+    // Ensure progress is between 0 and 1
+    progress = Math.max(0.0, Math.min(1.0, progress));
+    console.log(`🎭 Applying JS fade transition in export: progress=${progress}`);
+    
+    const alpha1 = 1.0 - progress;
+    const alpha2 = progress;
+    
+    for (let i = 0; i < output.length; i += 4) {
+      output[i] = Math.round(data1[i] * alpha1 + data2[i] * alpha2);
+      output[i + 1] = Math.round(data1[i + 1] * alpha1 + data2[i + 1] * alpha2);
+      output[i + 2] = Math.round(data1[i + 2] * alpha1 + data2[i + 2] * alpha2);
+      output[i + 3] = Math.round(data1[i + 3] * alpha1 + data2[i + 3] * alpha2);
+    }
+  }
+  
+  private applyDissolveTransitionJS(frame1Data: ImageData, frame2Data: ImageData, outputData: ImageData, progress: number): void {
+    const data1 = frame1Data.data;
+    const data2 = frame2Data.data;
+    const output = outputData.data;
+    const width = outputData.width;
+    const height = outputData.height;
+    
+    // Ensure progress is between 0 and 1
+    progress = Math.max(0.0, Math.min(1.0, progress));
+    console.log(`🌫️ Applying JS dissolve transition in export: progress=${progress}`);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const i = (y * width + x) * 4;
+        
+        // Create pseudo-random threshold based on pixel position (matches C implementation)
+        const threshold = ((x * 31 + y * 17) % 100) / 100.0;
+        
+        // Choose which frame to use based on progress and threshold
+        if (progress > threshold) {
+          // Use frame2
+          output[i] = data2[i];
+          output[i + 1] = data2[i + 1];
+          output[i + 2] = data2[i + 2];
+          output[i + 3] = data2[i + 3];
+        } else {
+          // Use frame1
+          output[i] = data1[i];
+          output[i + 1] = data1[i + 1];
+          output[i + 2] = data1[i + 2];
+          output[i + 3] = data1[i + 3];
+        }
+      }
+    }
+  }
+  
+  private applyWipeLeftTransitionJS(frame1Data: ImageData, frame2Data: ImageData, outputData: ImageData, progress: number): void {
+    const data1 = frame1Data.data;
+    const data2 = frame2Data.data;
+    const output = outputData.data;
+    const width = outputData.width;
+    const height = outputData.height;
+    
+    // Ensure progress is between 0 and 1
+    progress = Math.max(0.0, Math.min(1.0, progress));
+    console.log(`👈 Applying JS wipe left transition in export: progress=${progress}`);
+    
+    const wipe_x = Math.floor(progress * width);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const i = (y * width + x) * 4;
+        
+        if (x < wipe_x) {
+          // Show frame2 (new frame)
+          output[i] = data2[i];
+          output[i + 1] = data2[i + 1];
+          output[i + 2] = data2[i + 2];
+          output[i + 3] = data2[i + 3];
+        } else {
+          // Show frame1 (old frame)
+          output[i] = data1[i];
+          output[i + 1] = data1[i + 1];
+          output[i + 2] = data1[i + 2];
+          output[i + 3] = data1[i + 3];
+        }
+      }
+    }
+  }
+  
+  private applyWipeRightTransitionJS(frame1Data: ImageData, frame2Data: ImageData, outputData: ImageData, progress: number): void {
+    const data1 = frame1Data.data;
+    const data2 = frame2Data.data;
+    const output = outputData.data;
+    const width = outputData.width;
+    const height = outputData.height;
+    
+    // Ensure progress is between 0 and 1
+    progress = Math.max(0.0, Math.min(1.0, progress));
+    console.log(`👉 Applying JS wipe right transition in export: progress=${progress}`);
+    
+    const wipe_x = width - Math.floor(progress * width);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const i = (y * width + x) * 4;
+        
+        if (x >= wipe_x) {
+          // Show frame2 (new frame)
+          output[i] = data2[i];
+          output[i + 1] = data2[i + 1];
+          output[i + 2] = data2[i + 2];
+          output[i + 3] = data2[i + 3];
+        } else {
+          // Show frame1 (old frame)
+          output[i] = data1[i];
+          output[i + 1] = data1[i + 1];
+          output[i + 2] = data1[i + 2];
+          output[i + 3] = data1[i + 3];
+        }
+      }
+    }
+  }
+  
+  private applyWipeUpTransitionJS(frame1Data: ImageData, frame2Data: ImageData, outputData: ImageData, progress: number): void {
+    const data1 = frame1Data.data;
+    const data2 = frame2Data.data;
+    const output = outputData.data;
+    const width = outputData.width;
+    const height = outputData.height;
+    
+    // Ensure progress is between 0 and 1
+    progress = Math.max(0.0, Math.min(1.0, progress));
+    console.log(`👆 Applying JS wipe up transition in export: progress=${progress}`);
+    
+    const wipe_y = height - Math.floor(progress * height);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const i = (y * width + x) * 4;
+        
+        if (y >= wipe_y) {
+          // Show frame2 (new frame)
+          output[i] = data2[i];
+          output[i + 1] = data2[i + 1];
+          output[i + 2] = data2[i + 2];
+          output[i + 3] = data2[i + 3];
+        } else {
+          // Show frame1 (old frame)
+          output[i] = data1[i];
+          output[i + 1] = data1[i + 1];
+          output[i + 2] = data1[i + 2];
+          output[i + 3] = data1[i + 3];
+        }
+      }
+    }
+  }
+  
+  private applyWipeDownTransitionJS(frame1Data: ImageData, frame2Data: ImageData, outputData: ImageData, progress: number): void {
+    const data1 = frame1Data.data;
+    const data2 = frame2Data.data;
+    const output = outputData.data;
+    const width = outputData.width;
+    const height = outputData.height;
+    
+    // Ensure progress is between 0 and 1
+    progress = Math.max(0.0, Math.min(1.0, progress));
+    console.log(`👇 Applying JS wipe down transition in export: progress=${progress}`);
+    
+    const wipe_y = Math.floor(progress * height);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const i = (y * width + x) * 4;
+        
+        if (y < wipe_y) {
+          // Show frame2 (new frame)
+          output[i] = data2[i];
+          output[i + 1] = data2[i + 1];
+          output[i + 2] = data2[i + 2];
+          output[i + 3] = data2[i + 3];
+        } else {
+          // Show frame1 (old frame)
+          output[i] = data1[i];
+          output[i + 1] = data1[i + 1];
+          output[i + 2] = data1[i + 2];
+          output[i + 3] = data1[i + 3];
+        }
+      }
+    }
+  }
+
   private calculateTotalDuration(clips: VideoClip[]): number {
     let maxEndTime = 0;
     for (const clip of clips) {

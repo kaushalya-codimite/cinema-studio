@@ -153,11 +153,138 @@ const VideoPreview: React.FC = () => {
     ctx.fillText('Import a video file to begin editing', canvas.width / 2, canvas.height / 2 + 30);
   };
 
+  // Helper function to check and handle transitions between clips
+  const handleTransitions = async (videoTrack: any, time: number) => {
+    const clips = videoTrack.clips;
+    
+    // Find clips that have transitions and check if we're in a transition zone
+    for (let i = 0; i < clips.length; i++) {
+      const currentClip = clips[i];
+      
+      if (!currentClip.transition || !currentClip.transition.enabled) continue;
+      
+      const transitionStart = currentClip.endTime - currentClip.transition.duration;
+      const transitionEnd = currentClip.endTime;
+      
+      // Check if current time is within this clip's transition zone
+      if (time >= transitionStart && time <= transitionEnd) {
+        // Find the next clip (the one that starts at or after this clip ends)
+        const nextClip = clips
+          .filter(clip => clip.id !== currentClip.id) // Don't transition to self
+          .sort((a, b) => a.startTime - b.startTime) // Sort by start time
+          .find(clip => clip.startTime >= currentClip.endTime - currentClip.transition.duration);
+        
+        if (nextClip) {
+          console.log(`🎬 Transition detected: ${currentClip.transition.type} at time ${time.toFixed(2)}s`);
+          
+          // Calculate transition progress (0.0 to 1.0)
+          const progress = (time - transitionStart) / currentClip.transition.duration;
+          
+          try {
+            // Extract frames from both clips
+            const currentVideoTime = time - currentClip.startTime;
+            const nextVideoTime = time - nextClip.startTime;
+            
+            const frame1 = await videoFileService.extractFrame(currentClip.videoInfo, currentVideoTime);
+            const frame2 = await videoFileService.extractFrame(nextClip.videoInfo, nextVideoTime);
+            
+            if (frame1 && frame2) {
+              // Apply transitions using WASM
+              const result = await applyTransitionWASM(frame1, frame2, currentClip.transition, progress);
+              return result;
+            }
+          } catch (error) {
+            console.error('❌ Transition failed:', error);
+          }
+        }
+      }
+    }
+    
+    return null; // No transition found
+  };
+
+  // Apply transition effects using WASM
+  const applyTransitionWASM = async (frame1: any, frame2: any, transition: any, progress: number) => {
+    try {
+      await videoService.initialize();
+      
+      const width = frame1.imageData.width;
+      const height = frame1.imageData.height;
+      
+      // Convert frames to RGBA
+      const frame1Data = videoFileService.convertImageDataToRGBA(frame1.imageData);
+      const frame2Data = videoFileService.convertImageDataToRGBA(frame2.imageData);
+      const outputData = new Uint8Array(frame1Data.length);
+      
+      // Apply the appropriate transition
+      switch (transition.type) {
+        case 'fade':
+          videoService.applyFadeTransition(frame1Data, frame2Data, outputData, width, height, progress);
+          break;
+        case 'dissolve':
+          videoService.applyDissolveTransition(frame1Data, frame2Data, outputData, width, height, progress);
+          break;
+        case 'wipe_left':
+          videoService.applyWipeTransition(frame1Data, frame2Data, outputData, width, height, progress, 'left');
+          break;
+        case 'wipe_right':
+          videoService.applyWipeTransition(frame1Data, frame2Data, outputData, width, height, progress, 'right');
+          break;
+        case 'wipe_up':
+          videoService.applyWipeTransition(frame1Data, frame2Data, outputData, width, height, progress, 'up');
+          break;
+        case 'wipe_down':
+          videoService.applyWipeTransition(frame1Data, frame2Data, outputData, width, height, progress, 'down');
+          break;
+        default:
+          console.warn(`❓ Unknown transition type: ${transition.type}`);
+          // Fallback to simple copy
+          outputData.set(frame1Data);
+      }
+      
+      return { frameData: outputData, width, height };
+    } catch (error) {
+      console.error('❌ WASM transition failed:', error);
+      return null;
+    }
+  };
+
+  // Helper function to display frame data on canvas
+  const displayFrameData = (frameData: Uint8Array, width: number, height: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = width;
+    canvas.height = height;
+    
+    try {
+      const imageData = new ImageData(
+        new Uint8ClampedArray(frameData),
+        width,
+        height
+      );
+      ctx.putImageData(imageData, 0, 0);
+    } catch (error) {
+      console.error('Error displaying frame data:', error);
+    }
+  };
+
   const renderVideoAtTime = async (time: number) => {
     if (!project) return;
 
     const videoTrack = project.tracks.find(t => t.type === 'video');
     if (!videoTrack || videoTrack.clips.length === 0) return;
+
+    // Check for transition first - if we're in a transition zone, handle it
+    const transitionResult = await handleTransitions(videoTrack, time);
+    if (transitionResult) {
+      // Transition was applied, display the result
+      displayFrameData(transitionResult.frameData, transitionResult.width, transitionResult.height);
+      return;
+    }
 
     // Find the active clip at the current time
     const activeClip = videoTrack.clips.find(clip => 

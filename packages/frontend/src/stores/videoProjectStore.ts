@@ -10,13 +10,24 @@ export interface VideoClip {
   trackIndex: number;
   videoInfo: VideoFileInfo;
   effects: VideoEffect[];
+  transition?: VideoTransition;
+  playbackSpeed: number; // 1.0 = normal, 0.5 = slow motion, 2.0 = time-lapse
+  trimStart: number; // seconds from original start
+  trimEnd: number; // seconds from original end
 }
 
 export interface VideoEffect {
   id: string;
-  type: 'color_correction' | 'blur' | 'sharpen' | 'noise_reduction';
+  type: 'color_correction' | 'blur' | 'sharpen' | 'noise_reduction' | 'sepia' | 'black_and_white' | 'vintage' | 'vignette' | 'edge_detection' | 'transform';
   enabled: boolean;
-  parameters: Record<string, number>;
+  parameters: Record<string, number | boolean>;
+}
+
+export interface VideoTransition {
+  id: string;
+  type: 'fade' | 'dissolve' | 'wipe_left' | 'wipe_right' | 'wipe_up' | 'wipe_down';
+  duration: number; // in seconds
+  enabled: boolean;
 }
 
 export interface VideoTrack {
@@ -42,9 +53,17 @@ export interface VideoProject {
   timelineScrollOffset: number; // Horizontal scroll position in seconds
 }
 
+interface ProjectHistoryEntry {
+  project: VideoProject;
+  timestamp: number;
+  action: string;
+}
+
 interface VideoProjectStore {
   project: VideoProject | null;
   loadedVideos: VideoFileInfo[];
+  history: ProjectHistoryEntry[];
+  historyIndex: number;
   
   // Actions
   createNewProject: (name: string, width: number, height: number, fps: number) => void;
@@ -61,11 +80,26 @@ interface VideoProjectStore {
   setTimelineZoom: (zoom: number) => void;
   setTimelineScrollOffset: (offset: number) => void;
   updateClipTiming: (clipId: string, startTime: number, endTime: number) => void;
+  
+  // New timeline editing features
+  addTransitionToClip: (clipId: string, transitionType: 'fade' | 'dissolve' | 'wipe_left' | 'wipe_right' | 'wipe_up' | 'wipe_down', duration: number) => void;
+  splitClip: (clipId: string, splitTime: number) => void;
+  trimClip: (clipId: string, trimStart: number, trimEnd: number) => void;
+  setClipSpeed: (clipId: string, speed: number) => void;
+  
+  // Undo/Redo system
+  undo: () => void;
+  redo: () => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
+  saveToHistory: (action: string) => void;
 }
 
 export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
   project: null,
   loadedVideos: [],
+  history: [],
+  historyIndex: -1,
 
   createNewProject: (name, width, height, fps) => {
     const newProject: VideoProject = {
@@ -136,6 +170,9 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
       duration: videoInfo.duration,
       trackIndex,
       videoInfo,
+      playbackSpeed: 1.0,
+      trimStart: 0,
+      trimEnd: videoInfo.duration,
       effects: [
         {
           id: 'color-correction',
@@ -339,5 +376,182 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
         )
       } : null
     }));
+  },
+
+  // Timeline editing features
+  addTransitionToClip: (clipId, transitionType, duration) => {
+    const { saveToHistory } = get();
+    saveToHistory(`Add ${transitionType} transition`);
+    
+    set((state) => ({
+      project: state.project ? {
+        ...state.project,
+        tracks: state.project.tracks.map(track => ({
+          ...track,
+          clips: track.clips.map(clip => 
+            clip.id === clipId 
+              ? {
+                  ...clip,
+                  transition: {
+                    id: `transition-${Date.now()}`,
+                    type: transitionType,
+                    duration: Math.min(duration, clip.duration / 2),
+                    enabled: true
+                  }
+                }
+              : clip
+          )
+        }))
+      } : null
+    }));
+  },
+
+  splitClip: (clipId, splitTime) => {
+    const { saveToHistory } = get();
+    saveToHistory('Split clip');
+    
+    set((state) => {
+      if (!state.project) return state;
+      
+      const targetClip = state.project.tracks
+        .flatMap(track => track.clips)
+        .find(clip => clip.id === clipId);
+      
+      if (!targetClip || splitTime <= targetClip.startTime || splitTime >= targetClip.endTime) {
+        return state;
+      }
+
+      const firstClipDuration = splitTime - targetClip.startTime;
+      const secondClipStart = splitTime;
+      const secondClipDuration = targetClip.endTime - splitTime;
+
+      const firstClip: VideoClip = {
+        ...targetClip,
+        id: `${clipId}-part1-${Date.now()}`,
+        endTime: splitTime,
+        duration: firstClipDuration,
+        trimEnd: targetClip.trimStart + firstClipDuration
+      };
+
+      const secondClip: VideoClip = {
+        ...targetClip,
+        id: `${clipId}-part2-${Date.now()}`,
+        startTime: secondClipStart,
+        duration: secondClipDuration,
+        trimStart: targetClip.trimStart + firstClipDuration,
+        effects: [...targetClip.effects] // Copy effects
+      };
+
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          tracks: state.project.tracks.map(track => ({
+            ...track,
+            clips: track.clips.flatMap(clip => 
+              clip.id === clipId ? [firstClip, secondClip] : [clip]
+            )
+          }))
+        }
+      };
+    });
+  },
+
+  trimClip: (clipId, trimStart, trimEnd) => {
+    const { saveToHistory } = get();
+    saveToHistory('Trim clip');
+    
+    set((state) => ({
+      project: state.project ? {
+        ...state.project,
+        tracks: state.project.tracks.map(track => ({
+          ...track,
+          clips: track.clips.map(clip => 
+            clip.id === clipId 
+              ? {
+                  ...clip,
+                  trimStart: Math.max(0, trimStart),
+                  trimEnd: Math.min(clip.videoInfo.duration, trimEnd),
+                  duration: Math.max(0.1, trimEnd - trimStart),
+                  endTime: clip.startTime + Math.max(0.1, trimEnd - trimStart)
+                }
+              : clip
+          )
+        }))
+      } : null
+    }));
+  },
+
+  setClipSpeed: (clipId, speed) => {
+    const { saveToHistory } = get();
+    saveToHistory(`Set playback speed to ${speed}x`);
+    
+    set((state) => ({
+      project: state.project ? {
+        ...state.project,
+        tracks: state.project.tracks.map(track => ({
+          ...track,
+          clips: track.clips.map(clip => 
+            clip.id === clipId 
+              ? {
+                  ...clip,
+                  playbackSpeed: Math.max(0.1, Math.min(10, speed)), // Clamp between 0.1x and 10x
+                  duration: (clip.trimEnd - clip.trimStart) / speed,
+                  endTime: clip.startTime + ((clip.trimEnd - clip.trimStart) / speed)
+                }
+              : clip
+          )
+        }))
+      } : null
+    }));
+  },
+
+  // Undo/Redo system
+  saveToHistory: (action) => {
+    const { project, history, historyIndex } = get();
+    if (!project) return;
+
+    const newEntry: ProjectHistoryEntry = {
+      project: JSON.parse(JSON.stringify(project)), // Deep copy
+      timestamp: Date.now(),
+      action
+    };
+
+    set((state) => ({
+      history: [...state.history.slice(0, state.historyIndex + 1), newEntry],
+      historyIndex: state.historyIndex + 1
+    }));
+  },
+
+  undo: () => {
+    const { history, historyIndex } = get();
+    if (historyIndex > 0) {
+      const previousEntry = history[historyIndex - 1];
+      set({
+        project: JSON.parse(JSON.stringify(previousEntry.project)),
+        historyIndex: historyIndex - 1
+      });
+    }
+  },
+
+  redo: () => {
+    const { history, historyIndex } = get();
+    if (historyIndex < history.length - 1) {
+      const nextEntry = history[historyIndex + 1];
+      set({
+        project: JSON.parse(JSON.stringify(nextEntry.project)),
+        historyIndex: historyIndex + 1
+      });
+    }
+  },
+
+  canUndo: () => {
+    const { historyIndex } = get();
+    return historyIndex > 0;
+  },
+
+  canRedo: () => {
+    const { history, historyIndex } = get();
+    return historyIndex < history.length - 1;
   }
 }));

@@ -5,7 +5,16 @@ import { videoFileService } from '../../services/videoFileService';
 import type { VideoExporter } from '../../wasm/video-engine.d.ts';
 
 const PropertiesPanel: React.FC = () => {
-  const { project, updateClipEffect, addEffectToClip, clearFiltersFromClip } = useVideoProjectStore();
+  const { 
+    project, 
+    updateClipEffect, 
+    addEffectToClip, 
+    clearFiltersFromClip,
+    addTransitionToClip,
+    splitClip,
+    trimClip,
+    setClipSpeed
+  } = useVideoProjectStore();
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
   
@@ -770,6 +779,190 @@ const PropertiesPanel: React.FC = () => {
           🧹 Clear All Filters
         </button>
       </div>
+
+      {/* Transitions Section */}
+      <div className="panel-section">
+        <h3>🎬 Transitions</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '12px' }}>
+          <button 
+            className="secondary" 
+            style={{ padding: '8px', fontSize: '12px' }}
+            onClick={() => {
+              if (selectedClip) {
+                addTransitionToClip(selectedClip.id, 'fade', 1.0);
+                console.log('✅ Added fade transition to clip');
+              }
+            }}
+          >
+            🎭 Fade
+          </button>
+          <button 
+            className="secondary" 
+            style={{ padding: '8px', fontSize: '12px' }}
+            onClick={() => {
+              if (selectedClip) {
+                addTransitionToClip(selectedClip.id, 'dissolve', 1.5);
+                console.log('✅ Added dissolve transition to clip');
+              }
+            }}
+          >
+            🌫️ Dissolve
+          </button>
+          <button 
+            className="secondary" 
+            style={{ padding: '8px', fontSize: '12px' }}
+            onClick={() => {
+              if (selectedClip) {
+                addTransitionToClip(selectedClip.id, 'wipe_left', 1.0);
+                console.log('✅ Added wipe left transition to clip');
+              }
+            }}
+          >
+            👈 Wipe Left
+          </button>
+          <button 
+            className="secondary" 
+            style={{ padding: '8px', fontSize: '12px' }}
+            onClick={() => {
+              if (selectedClip) {
+                addTransitionToClip(selectedClip.id, 'wipe_right', 1.0);
+                console.log('✅ Added wipe right transition to clip');
+              }
+            }}
+          >
+            👉 Wipe Right
+          </button>
+          <button 
+            className="secondary" 
+            style={{ padding: '8px', fontSize: '12px' }}
+            onClick={() => {
+              if (selectedClip) {
+                addTransitionToClip(selectedClip.id, 'wipe_up', 1.0);
+                console.log('✅ Added wipe up transition to clip');
+              }
+            }}
+          >
+            👆 Wipe Up
+          </button>
+          <button 
+            className="secondary" 
+            style={{ padding: '8px', fontSize: '12px' }}
+            onClick={() => {
+              if (selectedClip) {
+                addTransitionToClip(selectedClip.id, 'wipe_down', 1.0);
+                console.log('✅ Added wipe down transition to clip');
+              }
+            }}
+          >
+            👇 Wipe Down
+          </button>
+        </div>
+        {selectedClip?.transition && (
+          <div style={{ fontSize: '11px', color: '#4a90e2', marginBottom: '8px' }}>
+            Current: {selectedClip.transition.type.replace('_', ' ')} ({selectedClip.transition.duration}s)
+          </div>
+        )}
+      </div>
+
+      {/* Timeline Editing Section */}
+      <div className="panel-section">
+        <h3>✂️ Timeline Editing</h3>
+        
+        <div className="control-group">
+          <label>Playback Speed</label>
+          <input
+            type="range"
+            min="0.1"
+            max="5"
+            step="0.1"
+            value={selectedClip?.playbackSpeed || 1.0}
+            onChange={(e) => {
+              if (selectedClip) {
+                setClipSpeed(selectedClip.id, parseFloat(e.target.value));
+              }
+            }}
+          />
+          <span style={{ fontSize: '12px', color: '#999' }}>
+            {(selectedClip?.playbackSpeed || 1.0).toFixed(1)}x
+          </span>
+        </div>
+
+        <div className="control-group">
+          <label>Trim Controls</label>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+            <div style={{ flex: 1 }}>
+              <label style={{ fontSize: '10px' }}>Start</label>
+              <input
+                type="range"
+                min="0"
+                max={selectedClip?.videoInfo.duration || 10}
+                step="0.1"
+                value={selectedClip?.trimStart || 0}
+                onChange={(e) => {
+                  if (selectedClip) {
+                    const newStart = parseFloat(e.target.value);
+                    trimClip(selectedClip.id, newStart, selectedClip.trimEnd);
+                  }
+                }}
+              />
+              <span style={{ fontSize: '10px', color: '#999' }}>
+                {(selectedClip?.trimStart || 0).toFixed(1)}s
+              </span>
+            </div>
+            <div style={{ flex: 1 }}>
+              <label style={{ fontSize: '10px' }}>End</label>
+              <input
+                type="range"
+                min={selectedClip?.trimStart || 0}
+                max={selectedClip?.videoInfo.duration || 10}
+                step="0.1"
+                value={selectedClip?.trimEnd || selectedClip?.videoInfo.duration || 10}
+                onChange={(e) => {
+                  if (selectedClip) {
+                    const newEnd = parseFloat(e.target.value);
+                    trimClip(selectedClip.id, selectedClip.trimStart, newEnd);
+                  }
+                }}
+              />
+              <span style={{ fontSize: '10px', color: '#999' }}>
+                {(selectedClip?.trimEnd || selectedClip?.videoInfo.duration || 0).toFixed(1)}s
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+          <button 
+            className="secondary" 
+            style={{ flex: 1, padding: '8px', fontSize: '12px' }}
+            onClick={() => {
+              if (selectedClip && project) {
+                const splitTime = selectedClip.startTime + (selectedClip.duration / 2);
+                splitClip(selectedClip.id, splitTime);
+                console.log('✂️ Split clip at middle');
+              }
+            }}
+          >
+            ✂️ Split at Center
+          </button>
+          <button 
+            className="secondary" 
+            style={{ flex: 1, padding: '8px', fontSize: '12px' }}
+            onClick={() => {
+              if (selectedClip && project) {
+                const splitTime = selectedClip.startTime + (project.currentTime - selectedClip.startTime);
+                if (splitTime > selectedClip.startTime && splitTime < selectedClip.endTime) {
+                  splitClip(selectedClip.id, splitTime);
+                  console.log('✂️ Split clip at playhead');
+                }
+              }
+            }}
+          >
+            ✂️ Split at Playhead
+          </button>
+        </div>
+      </div>
+
 
       {transformEffect && (
         <div className="panel-section">

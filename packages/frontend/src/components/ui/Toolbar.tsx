@@ -3,7 +3,16 @@ import { videoFileService } from '../../services/videoFileService';
 import { useVideoProjectStore } from '../../stores/videoProjectStore';
 
 const Toolbar: React.FC = () => {
-  const { project, createNewProject, addVideoFile, addClipToTrack } = useVideoProjectStore();
+  const { 
+    project, 
+    createNewProject, 
+    addVideoFile, 
+    addClipToTrack,
+    undo,
+    redo,
+    canUndo,
+    canRedo
+  } = useVideoProjectStore();
 
   const handleImportVideo = async () => {
     const input = document.createElement('input');
@@ -79,6 +88,38 @@ const Toolbar: React.FC = () => {
       <button className="success" disabled>
         🚀 Export
       </button>
+
+      {/* Undo/Redo buttons */}
+      <div style={{ display: 'flex', gap: '4px', marginLeft: '12px' }}>
+        <button 
+          className="secondary" 
+          style={{
+            padding: '8px 12px',
+            fontSize: '12px',
+            opacity: canUndo() ? 1 : 0.4,
+            cursor: canUndo() ? 'pointer' : 'not-allowed'
+          }}
+          onClick={undo}
+          disabled={!canUndo()}
+          title="Undo (Ctrl+Z)"
+        >
+          ↶ Undo
+        </button>
+        <button 
+          className="secondary" 
+          style={{
+            padding: '8px 12px',
+            fontSize: '12px',
+            opacity: canRedo() ? 1 : 0.4,
+            cursor: canRedo() ? 'pointer' : 'not-allowed'
+          }}
+          onClick={redo}
+          disabled={!canRedo()}
+          title="Redo (Ctrl+Y)"
+        >
+          ↷ Redo
+        </button>
+      </div>
       
       {project && (
         <div className="status-indicator success">

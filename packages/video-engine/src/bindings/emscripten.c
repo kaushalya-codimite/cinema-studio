@@ -1,5 +1,6 @@
 #include "video_engine.h"
 #include "filters.h"
+#include "transitions.h"
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
@@ -536,4 +537,89 @@ void js_apply_edge_detection_filter(uint8_t* frame_data, int width, int height, 
     
     filter_edge_detection_new(&temp_frame, intensity);
     printf("🔍 Applied WASM edge detection filter (intensity: %.2f) to %dx%d frame\n", intensity, width, height);
+}
+
+// WASM Transition Functions
+EMSCRIPTEN_KEEPALIVE
+void js_apply_fade_transition(uint8_t* frame1_data, uint8_t* frame2_data, uint8_t* output_data,
+                             int width, int height, float progress) {
+    if (!frame1_data || !frame2_data || !output_data || width <= 0 || height <= 0) return;
+    
+    // Create temporary video frame structures
+    video_frame_t frame1 = { .data = frame1_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t frame2 = { .data = frame2_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t output = { .data = output_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    
+    transition_fade(&frame1, &frame2, &output, progress);
+    printf("🎭 Applied WASM fade transition (progress: %.2f) to %dx%d frames\n", progress, width, height);
+}
+
+EMSCRIPTEN_KEEPALIVE
+void js_apply_dissolve_transition(uint8_t* frame1_data, uint8_t* frame2_data, uint8_t* output_data,
+                                 int width, int height, float progress) {
+    if (!frame1_data || !frame2_data || !output_data || width <= 0 || height <= 0) return;
+    
+    // Create temporary video frame structures
+    video_frame_t frame1 = { .data = frame1_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t frame2 = { .data = frame2_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t output = { .data = output_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    
+    transition_dissolve(&frame1, &frame2, &output, progress);
+    printf("🌫️ Applied WASM dissolve transition (progress: %.2f) to %dx%d frames\n", progress, width, height);
+}
+
+EMSCRIPTEN_KEEPALIVE
+void js_apply_wipe_left_transition(uint8_t* frame1_data, uint8_t* frame2_data, uint8_t* output_data,
+                                  int width, int height, float progress) {
+    if (!frame1_data || !frame2_data || !output_data || width <= 0 || height <= 0) return;
+    
+    // Create temporary video frame structures
+    video_frame_t frame1 = { .data = frame1_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t frame2 = { .data = frame2_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t output = { .data = output_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    
+    transition_wipe_left(&frame1, &frame2, &output, progress);
+    printf("👈 Applied WASM wipe left transition (progress: %.2f) to %dx%d frames\n", progress, width, height);
+}
+
+EMSCRIPTEN_KEEPALIVE
+void js_apply_wipe_right_transition(uint8_t* frame1_data, uint8_t* frame2_data, uint8_t* output_data,
+                                   int width, int height, float progress) {
+    if (!frame1_data || !frame2_data || !output_data || width <= 0 || height <= 0) return;
+    
+    // Create temporary video frame structures
+    video_frame_t frame1 = { .data = frame1_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t frame2 = { .data = frame2_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t output = { .data = output_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    
+    transition_wipe_right(&frame1, &frame2, &output, progress);
+    printf("👉 Applied WASM wipe right transition (progress: %.2f) to %dx%d frames\n", progress, width, height);
+}
+
+EMSCRIPTEN_KEEPALIVE
+void js_apply_wipe_up_transition(uint8_t* frame1_data, uint8_t* frame2_data, uint8_t* output_data,
+                                int width, int height, float progress) {
+    if (!frame1_data || !frame2_data || !output_data || width <= 0 || height <= 0) return;
+    
+    // Create temporary video frame structures
+    video_frame_t frame1 = { .data = frame1_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t frame2 = { .data = frame2_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t output = { .data = output_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    
+    transition_wipe_up(&frame1, &frame2, &output, progress);
+    printf("👆 Applied WASM wipe up transition (progress: %.2f) to %dx%d frames\n", progress, width, height);
+}
+
+EMSCRIPTEN_KEEPALIVE
+void js_apply_wipe_down_transition(uint8_t* frame1_data, uint8_t* frame2_data, uint8_t* output_data,
+                                  int width, int height, float progress) {
+    if (!frame1_data || !frame2_data || !output_data || width <= 0 || height <= 0) return;
+    
+    // Create temporary video frame structures
+    video_frame_t frame1 = { .data = frame1_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t frame2 = { .data = frame2_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    video_frame_t output = { .data = output_data, .width = width, .height = height, .format = 1, .timestamp = 0.0 };
+    
+    transition_wipe_down(&frame1, &frame2, &output, progress);
+    printf("👇 Applied WASM wipe down transition (progress: %.2f) to %dx%d frames\n", progress, width, height);
 }
