@@ -1,1184 +1,516 @@
- Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently
-video.onseeked @ videoFileService.ts:51
- 🎬 Transition detected: wipe_left at time 5.20s
- 🎬 Transition detected: wipe_left at time 5.20s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.23s
- 🎬 Transition detected: wipe_left at time 5.23s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.27s
- 🎬 Transition detected: wipe_left at time 5.27s
- 🎬 Transition detected: wipe_left at time 5.30s
- 🎬 Transition detected: wipe_left at time 5.30s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.33s
- 🎬 Transition detected: wipe_left at time 5.33s
- 🎬 Transition detected: wipe_left at time 5.37s
- 🎬 Transition detected: wipe_left at time 5.37s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.40s
- 🎬 Transition detected: wipe_left at time 5.40s
- 🎬 Transition detected: wipe_left at time 5.43s
- 🎬 Transition detected: wipe_left at time 5.43s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.47s
- 🎬 Transition detected: wipe_left at time 5.47s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.50s
- 🎬 Transition detected: wipe_left at time 5.50s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.53s
- 🎬 Transition detected: wipe_left at time 5.53s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.57s
- 🎬 Transition detected: wipe_left at time 5.57s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.60s
- 🎬 Transition detected: wipe_left at time 5.60s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.63s
- 🎬 Transition detected: wipe_left at time 5.63s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.67s
- 🎬 Transition detected: wipe_left at time 5.67s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.70s
- 🎬 Transition detected: wipe_left at time 5.70s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.73s
- 🎬 Transition detected: wipe_left at time 5.73s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.77s
- 🎬 Transition detected: wipe_left at time 5.77s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_left at time 5.80s
- 🎬 Transition detected: wipe_left at time 5.80s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.83s
- 🎬 Transition detected: wipe_left at time 5.83s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.87s
- 🎬 Transition detected: wipe_left at time 5.87s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.90s
- 🎬 Transition detected: wipe_left at time 5.90s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.93s
- 🎬 Transition detected: wipe_left at time 5.93s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 5.97s
- 🎬 Transition detected: wipe_left at time 5.97s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_left at time 6.00s
- 🎬 Transition detected: wipe_left at time 6.00s
- ❌ Failed to apply WASM wipe left transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Play button clicked! Current state: Object
- ⏸️ Stopping playback
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- ✅ Added wipe down transition to clip
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Play button clicked! Current state: Object
- ▶️ Starting playback at fps: 30
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_down at time 5.03s
- 🎬 Transition detected: wipe_down at time 5.03s
- 🎬 Transition detected: wipe_down at time 5.06s
- 🎬 Transition detected: wipe_down at time 5.06s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_down at time 5.09s
- 🎬 Transition detected: wipe_down at time 5.09s
- 🎬 Transition detected: wipe_down at time 5.13s
- 🎬 Transition detected: wipe_down at time 5.13s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_down at time 5.16s
- 🎬 Transition detected: wipe_down at time 5.16s
- 🎬 Transition detected: wipe_down at time 5.19s
- 🎬 Transition detected: wipe_down at time 5.19s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_down at time 5.23s
- 🎬 Transition detected: wipe_down at time 5.23s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_down at time 5.26s
- 🎬 Transition detected: wipe_down at time 5.26s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_down at time 5.29s
- 🎬 Transition detected: wipe_down at time 5.29s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_down at time 5.33s
- 🎬 Transition detected: wipe_down at time 5.33s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎬 Transition detected: wipe_down at time 5.36s
- 🎬 Transition detected: wipe_down at time 5.36s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
- ✅ WASM color correction applied successfully with C engine
- ✅ Applied C/WASM color correction in preview
- 🎨 Applying effect in preview: transform
- 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
- 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
- 🔄 Applied C/WASM transform in preview
- 🎬 Transition detected: wipe_down at time 5.39s
- 🎬 Transition detected: wipe_down at time 5.39s
- 🎬 Transition detected: wipe_down at time 5.43s
- 🎬 Transition detected: wipe_down at time 5.43s
- ❌ Failed to apply WASM wipe down transition: 
-applyWipeTransition @ videoService.ts?t=1757769207812:692
- ❌ WASM transition failed: 
-applyTransitionWASM @ VideoPreview.tsx?t=1757769274954:205
- 🎨 Applying effect in preview: color_correction
- 🎨 applyColorCorrection called with: Object
-videoService.ts:362 ✅ WASM color correction applied successfully with C engine
-VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
-VideoPreview.tsx:310 🎨 Applying effect in preview: transform
-video-engine.js?t=1757673185594:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
-videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
-VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.46s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.46s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.49s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.49s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.53s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.53s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
+chunk-FQJVA4MM.js?v=e7541c81:21580 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+videoService.ts:11 Loading WASM Video Engine...
+videoService.ts:11 Loading WASM Video Engine...
+videoService.ts:37 ✅ WASM Video Engine initialized successfully!
+videoService.ts:38 🔧 HEAPU8 available: true size: 16908288
+videoService.ts:39 🔧 HEAP32 available: true size: 4227072
+videoService.ts:40 🔧 ccall available: true
+videoService.ts:41 🎬 Engine version: CinemaStudio Pro Video Engine v1.0.0
+App.tsx:25 CinemaStudio Pro initialized!
+App.tsx:26 Engine version: CinemaStudio Pro Video Engine v1.0.0
+VideoPreview.tsx:106 Initializing test video in JavaScript mode
+VideoPreview.tsx:106 Initializing test video in JavaScript mode
+videoService.ts:37 ✅ WASM Video Engine initialized successfully!
+videoService.ts:38 🔧 HEAPU8 available: true size: 16908288
+videoService.ts:39 🔧 HEAP32 available: true size: 4227072
+videoService.ts:40 🔧 ccall available: true
+videoService.ts:41 🎬 Engine version: CinemaStudio Pro Video Engine v1.0.0
+App.tsx:25 CinemaStudio Pro initialized!
+App.tsx:26 Engine version: CinemaStudio Pro Video Engine v1.0.0
+Toolbar.tsx:31 Importing 1 video files...
+Toolbar.tsx:35 Loading video 1/1: WIN_20250911_17_13_10_Pro.mp4
+VideoPreview.tsx:106 Initializing test video in JavaScript mode
+Toolbar.tsx:40 Video loaded: {name: 'WIN_20250911_17_13_10_Pro.mp4', size: 6048352, duration: 6.002063, width: 1280, height: 720, …}
+Toolbar.tsx:51 ✅ Successfully imported 1 video files
 VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
-videoService.ts:318 🎨 applyColorCorrection called with: Object
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
 videoService.ts:362 ✅ WASM color correction applied successfully with C engine
 VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
 VideoPreview.tsx:310 🎨 Applying effect in preview: transform
-video-engine.js?t=1757673185594:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
 videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
 VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.56s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.56s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.59s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.59s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.63s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.63s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
+videoFileService.ts:84 Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently
+video.onseeked @ videoFileService.ts:84
 VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
-videoService.ts:318 🎨 applyColorCorrection called with: Object
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
 videoService.ts:362 ✅ WASM color correction applied successfully with C engine
 VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
 VideoPreview.tsx:310 🎨 Applying effect in preview: transform
-video-engine.js?t=1757673185594:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
 videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
 VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.66s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.66s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.69s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.69s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.73s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.73s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.76s
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.76s
-VideoPreview.tsx:525 🎬 Play button clicked! Current state: Object
-VideoPreview.tsx:95 ⏸️ Stopping playback
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.76s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
 VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
-videoService.ts:318 🎨 applyColorCorrection called with: Object
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
 videoService.ts:362 ✅ WASM color correction applied successfully with C engine
 VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
 VideoPreview.tsx:310 🎨 Applying effect in preview: transform
-video-engine.js?t=1757673185594:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
 videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
 VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
-PropertiesPanel.tsx:688 🔍 Applying WASM edge detection filter...
-video-engine.js?t=1757673185594:1 🔍 Applying edge detection filter (intensity: 0.80) to 1280x720 frame
-video-engine.js?t=1757673185594:1 ✅ Edge detection filter applied successfully
-video-engine.js?t=1757673185594:1 🔍 Applied WASM edge detection filter (intensity: 0.80) to 1280x720 frame
-videoService.ts:734 🔍 Applied WASM edge detection filter (intensity: 0.8)
-PropertiesPanel.tsx:717 ✅ WASM edge detection filter applied and canvas updated!
-PropertiesPanel.tsx:724 ✅ Edge detection effect added to clip for export!
-VideoPreview.tsx:178 🎬 Transition detected: wipe_down at time 5.76s
-videoService.ts:899 ❌ Failed to apply WASM wipe down transition: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyWipeTransition @ videoService.ts:899
-VideoPreview.tsx:247 ❌ WASM transition failed: TypeError: func is not a function
-    at Object.ccall (video-engine.js?t=1757673185594:1:10153)
-    at VideoService.applyWipeTransition (videoService.ts:883:26)
-    at applyTransitionWASM (VideoPreview.tsx:237:24)
-    at async handleTransitions (VideoPreview.tsx:193:30)
-    at async renderVideoAtTime (VideoPreview.tsx:282:30)
-applyTransitionWASM @ VideoPreview.tsx:247
 VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
-videoService.ts:318 🎨 applyColorCorrection called with: Object
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
 videoService.ts:362 ✅ WASM color correction applied successfully with C engine
 VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
 VideoPreview.tsx:310 🎨 Applying effect in preview: transform
-video-engine.js?t=1757673185594:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
 videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
 VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
-VideoPreview.tsx:310 🎨 Applying effect in preview: edge_detection
-video-engine.js?t=1757673185594:1 🔍 Applying edge detection filter (intensity: 0.80) to 1280x720 frame
-video-engine.js?t=1757673185594:1 ✅ Edge detection filter applied successfully
-video-engine.js?t=1757673185594:1 🔍 Applied WASM edge detection filter (intensity: 0.80) to 1280x720 frame
-videoService.ts:734 🔍 Applied WASM edge detection filter (intensity: 0.8)
-VideoPreview.tsx:398 🔍 Applied WASM edge detection filter in preview (intensity: 0.8)
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: color_correction
+videoService.ts:318 🎨 applyColorCorrection called with: {dataLength: 3686400, width: 1280, height: 720, expectedSize: 3686400, params: {…}}
+videoService.ts:362 ✅ WASM color correction applied successfully with C engine
+VideoPreview.tsx:448 ✅ Applied C/WASM color correction in preview
+VideoPreview.tsx:310 🎨 Applying effect in preview: transform
+video-engine.js?t=1757840862633:1 🔄 Applied WASM transform filter (scale: 100.0%, rotation: 0.0°, flip_h: 0, flip_v: 0, crop: 0,0 100x100) to 1280x720 frame
+videoService.ts:437 🔄 Applied WASM transform: scale=100%, rotation=0°, flip H/V=false/false, crop=0,0 100x100%
+VideoPreview.tsx:324 🔄 Applied C/WASM transform in preview
+PropertiesPanel.tsx:47 🚀 Starting unified WASM MP4 export for project: New Project
+wasmVideoService.ts:54 ✅ WasmVideoService initialized with effects engine: 76248
+PropertiesPanel.tsx:70 📊 Export settings: 1280x720 @ 30fps, quality: 80
+PropertiesPanel.tsx:71 📋 Found 1 clips with 2 effects
+PropertiesPanel.tsx:74 🎬 Starting unified WASM export with effects...
+wasmVideoService.ts:256 🚀 Starting WASM video export: mp4
+wasmVideoService.ts:81 🎨 Added color correction: brightness=0, contrast=0, saturation=0, hue=0
+wasmVideoService.ts:130 🎨 Applied 2 effects to WASM engine
+PropertiesPanel.tsx:86 🎥 WASM Export: 30/181 (16.6%) - 2 effects
+PropertiesPanel.tsx:86 🎥 WASM Export: 60/181 (33.1%) - 2 effects
+PropertiesPanel.tsx:86 🎥 WASM Export: 90/181 (49.7%) - 2 effects
+PropertiesPanel.tsx:86 🎥 WASM Export: 120/181 (66.3%) - 2 effects
+PropertiesPanel.tsx:86 🎥 WASM Export: 150/181 (82.9%) - 2 effects
+PropertiesPanel.tsx:86 🎥 WASM Export: 180/181 (99.4%) - 2 effects
+PropertiesPanel.tsx:86 🎥 WASM Export: 181/181 (100.0%) - 2 effects
+wasmVideoService.ts:357 ⚠️ WASM video encoder not implemented, falling back to frame extraction
+wasmVideoService.ts:189 🎬 Extracting processed frames: 1280x720 @ 30fps
+wasmVideoService.ts:81 🎨 Added color correction: brightness=0, contrast=0, saturation=0, hue=0
+wasmVideoService.ts:130 🎨 Applied 2 effects to WASM engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+PropertiesPanel.tsx:86 🎥 WASM Export: 30/181 (16.6%) - 2 effects
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+PropertiesPanel.tsx:86 🎥 WASM Export: 60/181 (33.1%) - 2 effects
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+PropertiesPanel.tsx:86 🎥 WASM Export: 90/181 (49.7%) - 2 effects
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+PropertiesPanel.tsx:86 🎥 WASM Export: 120/181 (66.3%) - 2 effects
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+PropertiesPanel.tsx:86 🎥 WASM Export: 150/181 (82.9%) - 2 effects
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+PropertiesPanel.tsx:86 🎥 WASM Export: 180/181 (99.4%) - 2 effects
+wasmVideoService.ts:165 🎨 Frame processed successfully by WASM effects engine
+PropertiesPanel.tsx:86 🎥 WASM Export: 181/181 (100.0%) - 2 effects
+wasmVideoService.ts:243 ✅ Extracted 181 processed frames
+wasmVideoService.ts:378 🎬 Using canvas fallback export: 181 processed frames
+canvasExportService.ts:23 🎬 Starting MP4 export with Canvas MediaRecorder
+canvasExportService.ts:41 VP9 not supported, falling back to VP8
+exportVideo @ canvasExportService.ts:41
+exportVideo @ wasmVideoService.ts:379
+await in exportVideo
+exportVideo @ PropertiesPanel.tsx:77
+await in exportVideo
+onClick @ PropertiesPanel.tsx:1064
+callCallback2 @ chunk-FQJVA4MM.js?v=e7541c81:3674
+invokeGuardedCallbackDev @ chunk-FQJVA4MM.js?v=e7541c81:3699
+invokeGuardedCallback @ chunk-FQJVA4MM.js?v=e7541c81:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-FQJVA4MM.js?v=e7541c81:3736
+executeDispatch @ chunk-FQJVA4MM.js?v=e7541c81:7016
+processDispatchQueueItemsInOrder @ chunk-FQJVA4MM.js?v=e7541c81:7036
+processDispatchQueue @ chunk-FQJVA4MM.js?v=e7541c81:7045
+dispatchEventsForPlugins @ chunk-FQJVA4MM.js?v=e7541c81:7053
+(anonymous) @ chunk-FQJVA4MM.js?v=e7541c81:7177
+batchedUpdates$1 @ chunk-FQJVA4MM.js?v=e7541c81:18941
+batchedUpdates @ chunk-FQJVA4MM.js?v=e7541c81:3579
+dispatchEventForPluginEventSystem @ chunk-FQJVA4MM.js?v=e7541c81:7176
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-FQJVA4MM.js?v=e7541c81:5478
+dispatchEvent @ chunk-FQJVA4MM.js?v=e7541c81:5472
+dispatchDiscreteEvent @ chunk-FQJVA4MM.js?v=e7541c81:5449
+canvasExportService.ts:97 🎬 Starting frame sequence render: 181 frames at 30fps
+canvasExportService.ts:98 ⏱️ Frame duration: 33.333333333333336ms per frame
+canvasExportService.ts:128 🎥 Frame 1/181 (0.6%) - Center pixel RGB(132,93,93) - Duration: 43.2ms
+canvasExportService.ts:128 🎥 Frame 11/181 (6.1%) - Center pixel RGB(138,99,99) - Duration: 33.8ms
+canvasExportService.ts:128 🎥 Frame 21/181 (11.6%) - Center pixel RGB(145,105,106) - Duration: 32.9ms
+canvasExportService.ts:128 🎥 Frame 31/181 (17.1%) - Center pixel RGB(144,105,104) - Duration: 34.5ms
+canvasExportService.ts:128 🎥 Frame 41/181 (22.7%) - Center pixel RGB(142,105,104) - Duration: 34.4ms
+canvasExportService.ts:128 🎥 Frame 51/181 (28.2%) - Center pixel RGB(138,101,101) - Duration: 33.4ms
+canvasExportService.ts:128 🎥 Frame 61/181 (33.7%) - Center pixel RGB(140,103,106) - Duration: 32.1ms
+canvasExportService.ts:128 🎥 Frame 71/181 (39.2%) - Center pixel RGB(140,103,104) - Duration: 33.4ms
+canvasExportService.ts:128 🎥 Frame 81/181 (44.8%) - Center pixel RGB(138,101,104) - Duration: 33.7ms
+canvasExportService.ts:128 🎥 Frame 91/181 (50.3%) - Center pixel RGB(137,99,99) - Duration: 33.4ms
+canvasExportService.ts:128 🎥 Frame 101/181 (55.8%) - Center pixel RGB(138,100,102) - Duration: 33.1ms
+canvasExportService.ts:128 🎥 Frame 111/181 (61.3%) - Center pixel RGB(135,99,101) - Duration: 32.6ms
+canvasExportService.ts:128 🎥 Frame 121/181 (66.9%) - Center pixel RGB(137,101,103) - Duration: 34.0ms
+canvasExportService.ts:128 🎥 Frame 131/181 (72.4%) - Center pixel RGB(136,99,100) - Duration: 33.4ms
+canvasExportService.ts:128 🎥 Frame 141/181 (77.9%) - Center pixel RGB(135,98,99) - Duration: 33.2ms
+canvasExportService.ts:128 🎥 Frame 151/181 (83.4%) - Center pixel RGB(139,101,102) - Duration: 33.2ms
+canvasExportService.ts:128 🎥 Frame 161/181 (89.0%) - Center pixel RGB(137,100,100) - Duration: 33.1ms
+canvasExportService.ts:128 🎥 Frame 171/181 (94.5%) - Center pixel RGB(137,99,100) - Duration: 35.0ms
+canvasExportService.ts:128 🎥 Frame 181/181 (100.0%) - Center pixel RGB(138,101,101) - Duration: 33.7ms
+canvasExportService.ts:132 ✅ All frames rendered to canvas stream
+wasmVideoService.ts:387 ✅ WASM unified export completed with canvas fallback
+PropertiesPanel.tsx:91 ✅ WASM unified export completed
+PropertiesPanel.tsx:95 📊 Performance: 362 frames, avg 61.30ms/frame
+PropertiesPanel.tsx:116 ✅ MP4 export completed! File size: 1.12MB

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useVideoProjectStore } from '../../stores/videoProjectStore';
 import { videoService } from '../../services/videoService';
 import { videoFileService } from '../../services/videoFileService';
-import type { VideoExporter } from '../../wasm/video-engine.d.ts';
+import { wasmVideoService } from '../../services/wasmVideoService';
 
 const PropertiesPanel: React.FC = () => {
   const { 
@@ -39,108 +39,60 @@ const PropertiesPanel: React.FC = () => {
 
   const exportVideo = async (format: 'mp4' | 'webm') => {
     if (!project) return;
-    
+
     setIsExporting(true);
     setExportProgress(0);
-    
+
     try {
-      console.log(`🚀 Starting ${format.toUpperCase()} export for project: ${project.name}`);
-      
-      // Import services dynamically
-      const { frameExtractionService } = await import('../../services/frameExtractionService');
-      
+      console.log(`🚀 Starting unified WASM ${format.toUpperCase()} export for project: ${project.name}`);
+
+      // Initialize WASM video service
+      await wasmVideoService.initialize();
+      setExportProgress(5);
+
       // Calculate export settings based on project
       const width = 1280;  // Standard HD width
-      const height = 720;  // Standard HD height  
+      const height = 720;  // Standard HD height
       const fps = project.fps;
-      
+      const quality = 80;   // High quality
+
       // Get all clips from all tracks
       const allClips = project.tracks.flatMap(track => track.clips);
-      
+
       // Check if project has clips
       if (!allClips || allClips.length === 0) {
         throw new Error('No clips in project to export');
       }
-      
-      const duration = Math.max(...allClips.map(clip => clip.startTime + clip.duration));
-      
-      console.log(`📊 Export settings: ${width}x${height} @ ${fps}fps, duration: ${duration}s`);
-      console.log(`📋 Found ${allClips.length} clips across ${project.tracks.length} tracks`);
-      
-      // Extract frames from all clips in the project
-      console.log('🎬 Extracting frames from project...');
+
+      // Get all effects from all clips
+      const allEffects = allClips.flatMap(clip => clip.effects || []);
+
+      console.log(`📊 Export settings: ${width}x${height} @ ${fps}fps, quality: ${quality}`);
+      console.log(`📋 Found ${allClips.length} clips with ${allEffects.length} effects`);
+
+      // Export using unified WASM service (includes effect processing)
+      console.log('🎬 Starting unified WASM export with effects...');
       setExportProgress(10);
-      
-      const frames = await frameExtractionService.extractFramesFromClips(
+
+      const exportedData = await wasmVideoService.exportVideo(
         allClips,
-        { width, height, fps },
-        (progress, frameIndex, totalFrames) => {
-          const extractProgress = 10 + (progress * 0.6); // 10% to 70% for extraction
-          setExportProgress(extractProgress);
-          
-          if (frameIndex % 30 === 0 || frameIndex === totalFrames) {
-            console.log(`📸 Frame extraction: ${frameIndex}/${totalFrames} (${progress.toFixed(1)}%)`);
+        allEffects,
+        { format, fps, width, height, quality },
+        (progress) => {
+          const totalProgress = 10 + (progress.progress * 90); // 10% to 100% for unified processing
+          setExportProgress(totalProgress);
+
+          if (progress.frameIndex % 30 === 0 || progress.frameIndex === progress.totalFrames) {
+            console.log(`🎥 WASM Export: ${progress.frameIndex}/${progress.totalFrames} (${(progress.progress * 100).toFixed(1)}%) - ${progress.effectsApplied} effects`);
           }
         }
       );
-      
-      if (frames.length === 0) {
-        throw new Error('No frames extracted from project clips');
-      }
-      
-      console.log(`✅ Extracted ${frames.length} frames, starting video encoding...`);
-      setExportProgress(70);
-      
-      let exportedData: Uint8Array;
-      
-      try {
-        // Try FFmpeg.wasm first (with timeout)
-        console.log('🔧 Attempting FFmpeg.wasm export...');
-        const { ffmpegExportService } = await import('../../services/ffmpegExportService');
-        
-        const ffmpegPromise = ffmpegExportService.initialize().then(() =>
-          ffmpegExportService.exportVideo(
-            frames,
-            { format, fps, width, height, quality: 'medium' },
-            (progress) => {
-              const totalProgress = 70 + (progress * 0.3); // 70% to 100% for encoding
-              setExportProgress(totalProgress);
-              
-              if (progress % 10 === 0 || progress === 100) {
-                console.log(`🎥 FFmpeg encoding: ${progress.toFixed(1)}%`);
-              }
-            }
-          )
-        );
-        
-        // Timeout for FFmpeg (5 seconds since it's now local)
-        const timeoutPromise = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error('FFmpeg.wasm loading timeout')), 5000)
-        );
-        
-        exportedData = await Promise.race([ffmpegPromise, timeoutPromise]);
-        console.log('✅ FFmpeg.wasm export successful');
-        
-      } catch (ffmpegError) {
-        console.warn('⚠️ FFmpeg.wasm failed, falling back to Canvas MediaRecorder:', ffmpegError);
-        
-        // Fallback to Canvas MediaRecorder
-        const { canvasExportService } = await import('../../services/canvasExportService');
-        
-        exportedData = await canvasExportService.exportVideo(
-          frames,
-          { format: 'webm', fps, width, height, quality: 0.8 }, // Force WebM for MediaRecorder
-          (progress) => {
-            const totalProgress = 70 + (progress * 0.3); // 70% to 100% for encoding
-            setExportProgress(totalProgress);
-            
-            if (progress % 10 === 0 || progress === 100) {
-              console.log(`🎥 Canvas encoding: ${progress.toFixed(1)}%`);
-            }
-          }
-        );
-        console.log('✅ Canvas MediaRecorder export successful');
-      }
+
+      console.log('✅ WASM unified export completed');
+
+      // Get performance stats
+      const stats = wasmVideoService.getPerformanceStats();
+      console.log(`📊 Performance: ${stats.framesProcessed} frames, avg ${stats.avgProcessingTime.toFixed(2)}ms/frame`);
       
       if (!exportedData || exportedData.length === 0) {
         throw new Error('Video export returned empty data');
@@ -148,7 +100,7 @@ const PropertiesPanel: React.FC = () => {
       
       // Create blob and download
       const mimeType = format === 'mp4' ? 'video/mp4' : 'video/webm';
-      const blob = new Blob([exportedData], { type: mimeType });
+      const blob = new Blob([exportedData.buffer], { type: mimeType });
       const url = URL.createObjectURL(blob);
       
       // Create download
@@ -162,7 +114,7 @@ const PropertiesPanel: React.FC = () => {
       
       const fileSizeMB = (exportedData.length / 1024 / 1024).toFixed(2);
       console.log(`✅ ${format.toUpperCase()} export completed! File size: ${fileSizeMB}MB`);
-      alert(`${format.toUpperCase()} export completed successfully!\nFile size: ${fileSizeMB}MB\nFrames: ${frames.length}`);
+      alert(`${format.toUpperCase()} export completed successfully!\nFile size: ${fileSizeMB}MB\nFrames: ${stats.framesProcessed}`);
       
     } catch (error) {
       console.error(`❌ ${format.toUpperCase()} export failed:`, error);

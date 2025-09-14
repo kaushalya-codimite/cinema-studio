@@ -189,8 +189,12 @@ const VideoPreview: React.FC = () => {
             const frame2 = await videoFileService.extractFrame(nextClip.videoInfo, nextVideoTime);
             
             if (frame1 && frame2) {
-              // Apply transitions using WASM
-              const result = await applyTransitionWASM(frame1, frame2, currentClip.transition, progress);
+              // Apply effects to both frames first (same as normal playback)
+              const processedFrame1 = await applyEffectsToFrame(frame1, currentClip);
+              const processedFrame2 = await applyEffectsToFrame(frame2, nextClip);
+
+              // Apply transitions using WASM with processed frames
+              const result = await applyTransitionWASM(processedFrame1, processedFrame2, currentClip.transition, progress);
               return result;
             }
           } catch (error) {
@@ -201,6 +205,115 @@ const VideoPreview: React.FC = () => {
     }
     
     return null; // No transition found
+  };
+
+  // Apply all effects to a single frame (extracted from main preview logic)
+  const applyEffectsToFrame = async (frame: any, clip: any) => {
+    if (!frame || !clip.effects || clip.effects.length === 0) {
+      return frame; // Return original if no effects
+    }
+
+    // Apply ALL effects (same as main preview logic)
+    let frameData = videoFileService.convertImageDataToRGBA(frame.imageData);
+    const width = frame.imageData.width;
+    const height = frame.imageData.height;
+
+    // Process all enabled effects in order
+    for (const effect of clip.effects) {
+      if (!effect.enabled) continue;
+
+      switch (effect.type) {
+        case 'color_correction':
+          try {
+            await applyColorCorrectionWASM(frameData, width, height, effect.parameters as any);
+          } catch (error) {
+            console.error('❌ Color correction failed in transition preview:', error);
+          }
+          break;
+        case 'transform':
+          try {
+            await videoService.initialize();
+            videoService.applyTransform(frameData, width, height, effect.parameters as any);
+          } catch (error) {
+            console.error('❌ Transform failed in transition preview:', error);
+          }
+          break;
+        case 'blur':
+          try {
+            await videoService.initialize();
+            videoService.applyBlurFilter(frameData, width, height, effect.parameters.radius || 1);
+          } catch (error) {
+            console.error('❌ Blur failed in transition preview:', error);
+          }
+          break;
+        case 'sharpen':
+          try {
+            await videoService.initialize();
+            videoService.applySharpenFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+          } catch (error) {
+            console.error('❌ Sharpen failed in transition preview:', error);
+          }
+          break;
+        case 'noise_reduction':
+          try {
+            await videoService.initialize();
+            videoService.applyNoiseReduction(frameData, width, height, effect.parameters.strength || 0.5);
+          } catch (error) {
+            console.error('❌ Noise reduction failed in transition preview:', error);
+          }
+          break;
+        case 'sepia':
+          try {
+            await videoService.initialize();
+            videoService.applySepiaFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+          } catch (error) {
+            console.error('❌ Sepia failed in transition preview:', error);
+          }
+          break;
+        case 'black_and_white':
+          try {
+            await videoService.initialize();
+            videoService.applyBlackAndWhiteFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+          } catch (error) {
+            console.error('❌ Black and white failed in transition preview:', error);
+          }
+          break;
+        case 'vintage':
+          try {
+            await videoService.initialize();
+            videoService.applyVintageFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+          } catch (error) {
+            console.error('❌ Vintage failed in transition preview:', error);
+          }
+          break;
+        case 'vignette':
+          try {
+            await videoService.initialize();
+            videoService.applyVignetteFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+          } catch (error) {
+            console.error('❌ Vignette failed in transition preview:', error);
+          }
+          break;
+        case 'edge_detection':
+          try {
+            await videoService.initialize();
+            videoService.applyEdgeDetectionFilter(frameData, width, height, effect.parameters.intensity || 0.5);
+          } catch (error) {
+            console.error('❌ Edge detection failed in transition preview:', error);
+          }
+          break;
+        default:
+          console.warn(`❓ Unknown effect type in transition: ${effect.type}`);
+          break;
+      }
+    }
+
+    // Return frame with processed data
+    return {
+      imageData: new ImageData(new Uint8ClampedArray(frameData), width, height),
+      width,
+      height
+    };
   };
 
   // Apply transition effects using WASM
