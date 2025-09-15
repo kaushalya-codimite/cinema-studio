@@ -64,7 +64,8 @@ interface VideoProjectStore {
   loadedVideos: VideoFileInfo[];
   history: ProjectHistoryEntry[];
   historyIndex: number;
-  
+  renderVersion: number; // Incremented on any change that affects rendering
+
   // Actions
   createNewProject: (name: string, width: number, height: number, fps: number) => void;
   addVideoFile: (videoInfo: VideoFileInfo) => void;
@@ -73,6 +74,7 @@ interface VideoProjectStore {
   removeClip: (clipId: string) => void;
   selectClip: (clipId: string | null) => void;
   updateClipEffect: (clipId: string, effectId: string, parameters: Record<string, number>) => void;
+  updateClipEffectRealtime: (clipId: string, effectId: string, parameters: Record<string, number>) => void;
   addEffectToClip: (clipId: string, effectType: string, parameters?: Record<string, number>) => void;
   clearFiltersFromClip: (clipId: string) => void;
   setCurrentTime: (time: number) => void;
@@ -80,13 +82,13 @@ interface VideoProjectStore {
   setTimelineZoom: (zoom: number) => void;
   setTimelineScrollOffset: (offset: number) => void;
   updateClipTiming: (clipId: string, startTime: number, endTime: number) => void;
-  
+
   // New timeline editing features
   addTransitionToClip: (clipId: string, transitionType: 'fade' | 'dissolve' | 'wipe_left' | 'wipe_right' | 'wipe_up' | 'wipe_down', duration: number) => void;
   splitClip: (clipId: string, splitTime: number) => void;
   trimClip: (clipId: string, trimStart: number, trimEnd: number) => void;
   setClipSpeed: (clipId: string, speed: number) => void;
-  
+
   // Undo/Redo system
   undo: () => void;
   redo: () => void;
@@ -95,11 +97,15 @@ interface VideoProjectStore {
   saveToHistory: (action: string) => void;
 }
 
+// Debounce timer for effect updates
+let effectUpdateTimer: NodeJS.Timeout | null = null;
+
 export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
   project: null,
   loadedVideos: [],
   history: [],
   historyIndex: -1,
+  renderVersion: 0,
 
   createNewProject: (name, width, height, fps) => {
     const newProject: VideoProject = {
@@ -132,7 +138,11 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
       timelineScrollOffset: 0
     };
 
-    set({ project: newProject });
+    set({ project: newProject, history: [], historyIndex: -1 });
+
+    // Save initial state to history so user can undo back to empty project
+    const { saveToHistory } = get();
+    saveToHistory(`Create project "${name}"`);
   },
 
   addVideoFile: (videoInfo) => {
@@ -148,15 +158,15 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
   },
 
   addClipToTrack: (videoInfo, trackIndex, position?: number) => {
-    const { project } = get();
+    const { project, saveToHistory } = get();
     if (!project || trackIndex >= project.tracks.length) return;
 
     const track = project.tracks[trackIndex];
     let startTime = position ?? 0;
-    
+
     // If no position specified, add after the last clip
     if (position === undefined && track.clips.length > 0) {
-      const lastClip = track.clips.reduce((latest, clip) => 
+      const lastClip = track.clips.reduce((latest, clip) =>
         clip.endTime > latest.endTime ? clip : latest
       );
       startTime = lastClip.endTime;
@@ -205,20 +215,33 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
       ]
     };
 
+    saveToHistory(`Add clip "${videoInfo.name}"`);
+
     set((state) => ({
       project: state.project ? {
         ...state.project,
-        tracks: state.project.tracks.map((track, index) => 
-          index === trackIndex 
+        tracks: state.project.tracks.map((track, index) =>
+          index === trackIndex
             ? { ...track, clips: [...track.clips, newClip] }
             : track
         ),
         duration: Math.max(state.project.duration, newClip.endTime)
-      } : null
+      } : null,
+      renderVersion: state.renderVersion + 1
     }));
   },
 
   removeClip: (clipId) => {
+    const { saveToHistory, project } = get();
+    if (!project) return;
+
+    // Find clip name for history message
+    const clipToRemove = project.tracks
+      .flatMap(track => track.clips)
+      .find(clip => clip.id === clipId);
+
+    saveToHistory(`Remove clip "${clipToRemove?.name || 'Unknown'}"`);
+
     set((state) => ({
       project: state.project ? {
         ...state.project,
@@ -227,7 +250,8 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
           clips: track.clips.filter(clip => clip.id !== clipId)
         })),
         selectedClipId: state.project.selectedClipId === clipId ? null : state.project.selectedClipId
-      } : null
+      } : null,
+      renderVersion: state.renderVersion + 1
     }));
   },
 
@@ -241,13 +265,25 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
   },
 
   updateClipEffect: (clipId, effectId, parameters) => {
+    const { saveToHistory, project } = get();
+    if (!project) return;
+
+    // Find effect type for history message
+    const clip = project.tracks
+      .flatMap(track => track.clips)
+      .find(clip => clip.id === clipId);
+    const effect = clip?.effects.find(effect => effect.id === effectId);
+    const paramNames = Object.keys(parameters).join(', ');
+
+    saveToHistory(`Update ${effect?.type || 'effect'} (${paramNames})`);
+
     set((state) => ({
       project: state.project ? {
         ...state.project,
         tracks: state.project.tracks.map(track => ({
           ...track,
-          clips: track.clips.map(clip => 
-            clip.id === clipId 
+          clips: track.clips.map(clip =>
+            clip.id === clipId
               ? {
                   ...clip,
                   effects: clip.effects.map(effect =>
@@ -259,18 +295,69 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
               : clip
           )
         }))
-      } : null
+      } : null,
+      renderVersion: state.renderVersion + 1
     }));
   },
 
-  addEffectToClip: (clipId, effectType, parameters = {}) => {
+  updateClipEffectRealtime: (clipId, effectId, parameters) => {
+    const { project } = get();
+    if (!project) return;
+
+    // Update effect parameters immediately for real-time preview
     set((state) => ({
       project: state.project ? {
         ...state.project,
         tracks: state.project.tracks.map(track => ({
           ...track,
-          clips: track.clips.map(clip => 
-            clip.id === clipId 
+          clips: track.clips.map(clip =>
+            clip.id === clipId
+              ? {
+                  ...clip,
+                  effects: clip.effects.map(effect =>
+                    effect.id === effectId
+                      ? { ...effect, parameters: { ...effect.parameters, ...parameters } }
+                      : effect
+                  )
+                }
+              : clip
+          )
+        }))
+      } : null,
+      renderVersion: state.renderVersion + 1
+    }));
+
+    // Debounce history saving to avoid creating too many history entries
+    if (effectUpdateTimer) {
+      clearTimeout(effectUpdateTimer);
+    }
+
+    effectUpdateTimer = setTimeout(() => {
+      const { saveToHistory, project } = get();
+      if (!project) return;
+
+      const clip = project.tracks
+        .flatMap(track => track.clips)
+        .find(clip => clip.id === clipId);
+      const effect = clip?.effects.find(effect => effect.id === effectId);
+      const paramNames = Object.keys(parameters).join(', ');
+
+      saveToHistory(`Update ${effect?.type || 'effect'} (${paramNames})`);
+    }, 1000); // Save to history 1 second after last change
+  },
+
+  addEffectToClip: (clipId, effectType, parameters = {}) => {
+    const { saveToHistory } = get();
+
+    saveToHistory(`Add ${effectType} effect`);
+
+    set((state) => ({
+      project: state.project ? {
+        ...state.project,
+        tracks: state.project.tracks.map(track => ({
+          ...track,
+          clips: track.clips.map(clip =>
+            clip.id === clipId
               ? {
                   ...clip,
                   effects: [
@@ -286,28 +373,34 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
               : clip
           )
         }))
-      } : null
+      } : null,
+      renderVersion: state.renderVersion + 1
     }));
   },
 
   clearFiltersFromClip: (clipId) => {
+    const { saveToHistory } = get();
+
+    saveToHistory('Clear all filters');
+
     set((state) => ({
       project: state.project ? {
         ...state.project,
         tracks: state.project.tracks.map(track => ({
           ...track,
-          clips: track.clips.map(clip => 
-            clip.id === clipId 
+          clips: track.clips.map(clip =>
+            clip.id === clipId
               ? {
                   ...clip,
-                  effects: clip.effects.filter(effect => 
+                  effects: clip.effects.filter(effect =>
                     effect.type === 'color_correction' || effect.type === 'transform'
                   )
                 }
               : clip
           )
         }))
-      } : null
+      } : null,
+      renderVersion: state.renderVersion + 1
     }));
   },
 
@@ -351,13 +444,23 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
   },
 
   updateClipTiming: (clipId, startTime, endTime) => {
+    const { saveToHistory, project } = get();
+    if (!project) return;
+
+    // Find clip name for history message
+    const clip = project.tracks
+      .flatMap(track => track.clips)
+      .find(clip => clip.id === clipId);
+
+    saveToHistory(`Move clip "${clip?.name || 'Unknown'}"`);
+
     set((state) => ({
       project: state.project ? {
         ...state.project,
         tracks: state.project.tracks.map(track => ({
           ...track,
-          clips: track.clips.map(clip => 
-            clip.id === clipId 
+          clips: track.clips.map(clip =>
+            clip.id === clipId
               ? {
                   ...clip,
                   startTime: Math.max(0, startTime),
@@ -369,8 +472,8 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
         })),
         duration: Math.max(
           state.project.duration,
-          state.project.tracks.reduce((maxTime, track) => 
-            Math.max(maxTime, ...track.clips.map(clip => 
+          state.project.tracks.reduce((maxTime, track) =>
+            Math.max(maxTime, ...track.clips.map(clip =>
               clip.id === clipId ? endTime : clip.endTime
             )), 0)
         )
@@ -527,10 +630,11 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
     const { history, historyIndex } = get();
     if (historyIndex > 0) {
       const previousEntry = history[historyIndex - 1];
-      set({
+      set((state) => ({
         project: JSON.parse(JSON.stringify(previousEntry.project)),
-        historyIndex: historyIndex - 1
-      });
+        historyIndex: historyIndex - 1,
+        renderVersion: state.renderVersion + 1
+      }));
     }
   },
 
@@ -538,10 +642,11 @@ export const useVideoProjectStore = create<VideoProjectStore>((set, get) => ({
     const { history, historyIndex } = get();
     if (historyIndex < history.length - 1) {
       const nextEntry = history[historyIndex + 1];
-      set({
+      set((state) => ({
         project: JSON.parse(JSON.stringify(nextEntry.project)),
-        historyIndex: historyIndex + 1
-      });
+        historyIndex: historyIndex + 1,
+        renderVersion: state.renderVersion + 1
+      }));
     }
   },
 

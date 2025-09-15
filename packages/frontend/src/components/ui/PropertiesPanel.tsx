@@ -5,10 +5,11 @@ import { videoFileService } from '../../services/videoFileService';
 import { wasmVideoService } from '../../services/wasmVideoService';
 
 const PropertiesPanel: React.FC = () => {
-  const { 
-    project, 
-    updateClipEffect, 
-    addEffectToClip, 
+  const {
+    project,
+    updateClipEffect,
+    updateClipEffectRealtime,
+    addEffectToClip,
     clearFiltersFromClip,
     addTransitionToClip,
     splitClip,
@@ -27,13 +28,13 @@ const PropertiesPanel: React.FC = () => {
 
   const handleEffectChange = (parameter: string, value: number) => {
     if (selectedClip && colorEffect) {
-      updateClipEffect(selectedClip.id, colorEffect.id, { [parameter]: value });
+      updateClipEffectRealtime(selectedClip.id, colorEffect.id, { [parameter]: value });
     }
   };
 
   const handleTransformChange = (parameter: string, value: number | boolean) => {
     if (selectedClip && transformEffect) {
-      updateClipEffect(selectedClip.id, transformEffect.id, { [parameter]: value });
+      updateClipEffectRealtime(selectedClip.id, transformEffect.id, { [parameter]: value });
     }
   };
 

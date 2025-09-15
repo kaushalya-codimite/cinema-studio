@@ -6,7 +6,7 @@ import type { VideoDecoder, VideoFrame } from '../../wasm/video-engine.d.ts';
 
 const VideoPreview: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { project, setCurrentTime, setPlaying } = useVideoProjectStore();
+  const { project, setCurrentTime, setPlaying, renderVersion } = useVideoProjectStore();
   const [decoder, setDecoder] = useState<VideoDecoder | null>(null);
   const [currentFrame, setCurrentFrame] = useState<VideoFrame | null>(null);
   const [frameNumber, setFrameNumber] = useState(0);
@@ -36,7 +36,7 @@ const VideoPreview: React.FC = () => {
     };
 
     initializePreview();
-  }, [project]);
+  }, [project, project?.tracks, project?.currentTime]);
 
   // Handle play/pause state changes
   useEffect(() => {
@@ -47,13 +47,21 @@ const VideoPreview: React.FC = () => {
     }
   }, [project?.isPlaying]);
 
-  // Handle currentTime changes for rendering frames
+  // Force re-render when renderVersion changes (for undo/redo sync)
+  useEffect(() => {
+    if (project && !project.isPlaying) {
+      console.log('🔄 Render version updated, re-rendering preview');
+      renderVideoAtTime(project.currentTime);
+    }
+  }, [renderVersion]);
+
+  // Handle currentTime changes and effect updates for rendering frames
   useEffect(() => {
     if (project && !project.isPlaying) {
       // Only render when NOT playing (to avoid conflicts with playback timer)
       renderVideoAtTime(project.currentTime);
     }
-  }, [project?.currentTime]);
+  }, [project?.currentTime, project?.tracks, project?.selectedClipId]);
 
   const startPlayback = () => {
     if (playbackInterval || !project) return;
