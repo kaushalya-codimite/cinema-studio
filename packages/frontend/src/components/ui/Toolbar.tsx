@@ -60,8 +60,10 @@ const Toolbar: React.FC = () => {
   };
 
   const handleNewProject = () => {
-    const name = prompt('Project name:', 'New Project') || 'New Project';
-    createNewProject(name, 1920, 1080, 30);
+    const name = prompt('Project name:', 'New Project');
+    if (name !== null) {
+      createNewProject(name || 'New Project', 1920, 1080, 30);
+    }
   };
 
   return (
